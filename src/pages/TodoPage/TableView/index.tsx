@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useTable } from "react-table";
+import { useTable, Column } from "react-table";
 import {
   TableDatum,
   TableDataArray,
@@ -9,12 +9,19 @@ import { COLUMNS } from "../../../shared/constants/Columns";
 //TODO: this will be coming from parent, so the below data shouldn't be from MOCK_DATA in the future
 import MOCK_DATA from "../../../mock-data/todos.json";
 
+export type TableProps = {
+  data: Array<any>;
+  columns: Array<Column>;
+  enableSorting?: boolean;
+  hideHeaders?: boolean;
+};
+
 const TableView: React.FC<TableDataArray> = ({ data }) => {
   const columns = useMemo(() => COLUMNS, []);
   const mock_data = useMemo(() => MOCK_DATA, []);
 
-  // TODO: ugh
-  const tableInstance = useTable({ columns: columns });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns: columns, data: mock_data });
 
   return <div></div>;
 };
