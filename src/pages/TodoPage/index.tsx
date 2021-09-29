@@ -1,9 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { TodoPageContainer } from "./Styles";
 import { TableDatum, TableDataArray } from "../../shared/models";
 import TableView from "./TableView";
 
-//TODO: this will be coming from parent, so the below data shouldn't be from MOCK_DATA in the future
+//TODO: the below data shouldn't be from MOCK_DATA in the future
 import MOCK_DATA from "../../mock-data/todos.json";
 
 const initialState = {
@@ -62,10 +62,6 @@ const TodoPage = () => {
 
     // add new todo
     setTodos((prevState) => {
-      console.log("=========prevState=========");
-      console.log(prevState);
-      console.log("__________newTodo__________");
-      console.log(newTodo);
       return [...prevState, newTodo];
     });
 

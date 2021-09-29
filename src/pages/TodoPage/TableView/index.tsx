@@ -8,23 +8,10 @@ import {
 import { COLUMNS } from "../../../shared/constants/Columns";
 import { Table, THead, Tr, Th, Td } from "./Styles";
 
-//TODO: this will be coming from parent, so the below data shouldn't be from MOCK_DATA in the future
-// import MOCK_DATA from "../../../mock-data/todos.json";
-//TODO: to be deleted and do my own styling
-// import "./Tmp.css";
-
-// export type TableProps = {
-//   data: Array<any>;
-//   columns: Array<Column>;
-//   enableSorting?: boolean;
-//   hideHeaders?: boolean;
-// };
-
 // TODO: [9/28/2021] Figure out why table is hidden when width is small
 
 // TODO: need to uncomment and use this one instead
 const TableView: React.FC<TableDataArray> = ({ data }) => {
-  // const TableView = () => {
   const columns = useMemo(() => COLUMNS, []);
   const todos = useMemo(() => data, [data]);
 
