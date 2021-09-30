@@ -1,4 +1,4 @@
-## src File Organization
+## File Organization
 
 ##### Using the following file structure
 
