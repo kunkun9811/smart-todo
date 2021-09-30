@@ -3,6 +3,11 @@ import { TodoPageContainer } from "./Styles";
 import { TableDatum, TableDataArray } from "../../shared/models";
 import TableView from "./TableView";
 
+// redux imports
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { TodosActionCreators, State } from "../../state";
+
 //TODO: the below data shouldn't be from MOCK_DATA in the future
 import MOCK_DATA from "../../mock-data/todos.json";
 
@@ -16,16 +21,19 @@ const initialState = {
 };
 
 const TodoPage = () => {
+  /* redux variables */
+  // redux dispatch
+  const dispatch = useDispatch();
+  // get action creators
+  const { AddTodo } = bindActionCreators(TodosActionCreators, dispatch);
+  // state in the store TODO: need to maybe delete the [todos] variable at line 37
+  const todos = useSelector((state: State) => state.todos);
+
+  // states for user inputs
   const [id, setId] = useState<TableDatum["id"]>(initialState.id);
-  const [description, setDescription] = useState<TableDatum["description"]>(
-    initialState.description
-  );
-  const [dueDate, setDueDate] = useState<TableDatum["due_date"]>(
-    initialState.dueDate
-  );
-  const [priority, setPriority] = useState<TableDatum["priority"]>(
-    initialState.priority
-  );
+  const [description, setDescription] = useState<TableDatum["description"]>(initialState.description);
+  const [dueDate, setDueDate] = useState<TableDatum["due_date"]>(initialState.dueDate);
+  const [priority, setPriority] = useState<TableDatum["priority"]>(initialState.priority);
   const [todos, setTodos] = useState<TableDataArray["data"]>(initialState.data);
 
   // add new todo from user inputs
@@ -72,13 +80,12 @@ const TodoPage = () => {
     setPriority(initialState.priority);
 
     // clear input values
-    Array.from(document.querySelectorAll("input")).forEach(
-      (input) => (input.value = "")
-    );
+    Array.from(document.querySelectorAll("input")).forEach((input) => (input.value = ""));
   };
 
   return (
     <TodoPageContainer>
+      {/* TODO: [9/30/2021] Make Input Component in the future */}
       <input
         id="id"
         type="text"
@@ -114,7 +121,7 @@ const TodoPage = () => {
       />
       <button onClick={() => addTodo()}>Add</button>
 
-      {/* table view */}
+      {/* view type #1: table view */}
       <TableView data={todos} />
     </TodoPageContainer>
   );

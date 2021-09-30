@@ -4,9 +4,6 @@ import { TableDatum, TableDataArray, ColumnsStructure } from "../../../shared/mo
 import { COLUMNS } from "../../../shared/constants/Columns";
 import { Table, THead, HeadTr, TBody, BodyTr, Th, Td } from "./Styles";
 
-// TODO: [9/28/2021] Figure out why table is hidden when width is small
-
-// TODO: need to uncomment and use this one instead
 const TableView: React.FC<TableDataArray> = ({ data }) => {
   const columns = useMemo(() => COLUMNS, []);
   const todos = useMemo(() => data, [data]);

@@ -9,6 +9,7 @@ import GlobalStyle from "./globalstyles";
 
 ReactDOM.render(
   <React.StrictMode>
+    {/* redux */}
     <Provider store={store}>
       <ThemeProvider theme={GlobalStyle}>
         <App />
