@@ -1,4 +1,4 @@
-## File Organization
+## Project Structure
 
 ##### Using the following file structure
 
