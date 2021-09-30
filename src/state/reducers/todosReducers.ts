@@ -13,6 +13,8 @@ const reducer = (state = initialState, action: TodosActions) => {
         ...state,
         todos: [...state, action.payload],
       };
+    default:
+      return state;
   }
 };
 
