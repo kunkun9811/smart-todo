@@ -1,3 +1,5 @@
+/* COLUMNS type for react-table */
+
 // TODO: Need to update this in the future
 // KEY: It is important to write "as const" for "accessor", or else there will be errors when using it in "useTable"
 export const COLUMNS = [
