@@ -3,7 +3,7 @@
 #### Referenced the following file structure
 
 https://github.com/oldboyxx/jira_clone/tree/master/client<br>
-In essence, the main rule to follow: \*\* Files from one module/folder/directory can only import from the _children_ directories (in some special cases, the _ancestor_ directories) within the _SAME_ module/folder/directory AND from `shared`.
+In essence, the main rule to follow: **Files from one module/folder/directory can only import from the _children_ directories (in some special cases, the _ancestor_ directories) within the _SAME_ module/folder/directory AND from `shared`.**
 
 | Directory or File | Description                                                                                                                                                                 |
 | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
