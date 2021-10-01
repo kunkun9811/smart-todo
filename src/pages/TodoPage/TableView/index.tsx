@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import { useTable, Column } from "react-table";
-import { TableDatum, TableDataArray, ColumnsStructure } from "../../../shared/models";
-import { COLUMNS } from "../../../shared/constants/Columns";
+import { TableDataArray } from "../../../shared/models";
 import { Table, THead, HeadTr, TBody, BodyTr, Th, Td } from "./Styles";
+import { useTable } from "react-table";
+import { COLUMNS } from "../../../shared/constants/Columns";
 
 const TableView: React.FC<TableDataArray> = ({ data }) => {
   const columns = useMemo(() => COLUMNS, []);

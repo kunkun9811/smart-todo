@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { TodoPageContainer } from "./Styles";
-import { TableDatum, TableDataArray } from "../../shared/models";
+import { TableDataArray, TableDatum } from "../../shared/models";
 import TableView from "./TableView";
+import BoardView from "./BoardView";
 
 // redux imports
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { TodosActionCreators, State } from "../../state";
 
-//TODO: the below data shouldn't be from MOCK_DATA in the future
+//TODO: [9/30/2021] the below data shouldn't be from MOCK_DATA in the future, [data] should be populated from database
 import MOCK_DATA from "../../mock-data/todos.json";
 
 const initialState = {
@@ -16,7 +17,7 @@ const initialState = {
   description: "",
   dueDate: "",
   priority: "",
-  // TODO: delete this later
+  // TODO: [9/30/2021] delete this later, [data] should be populated from database
   data: MOCK_DATA,
 };
 
@@ -34,6 +35,7 @@ const TodoPage = () => {
   const [description, setDescription] = useState<TableDatum["description"]>(initialState.description);
   const [dueDate, setDueDate] = useState<TableDatum["due_date"]>(initialState.dueDate);
   const [priority, setPriority] = useState<TableDatum["priority"]>(initialState.priority);
+  // const [todos, setTodos] = useState<TableDataArray["data"]>(initialState.data); // DEBUG: If want to just have mock_data populated, uncomment this
 
   // add new todo from user inputs
   const addTodo = (): void => {
@@ -118,8 +120,12 @@ const TodoPage = () => {
       />
       <button onClick={() => addTodo()}>Add</button>
 
+      {/* TODO: [9/30/2021] - do conditional rendering */}
       {/* view type #1: table view */}
-      <TableView data={todos} />
+      {/* <TableView data={todos} /> */}
+
+      {/* view type #2: board view/kanban board */}
+      <BoardView data={todos} />
     </TodoPageContainer>
   );
 };
