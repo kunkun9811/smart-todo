@@ -34,7 +34,6 @@ const TodoPage = () => {
   const [description, setDescription] = useState<TableDatum["description"]>(initialState.description);
   const [dueDate, setDueDate] = useState<TableDatum["due_date"]>(initialState.dueDate);
   const [priority, setPriority] = useState<TableDatum["priority"]>(initialState.priority);
-  const [todos, setTodos] = useState<TableDataArray["data"]>(initialState.data);
 
   // add new todo from user inputs
   const addTodo = (): void => {
@@ -68,10 +67,8 @@ const TodoPage = () => {
       priority,
     };
 
-    // add new todo
-    setTodos((prevState) => {
-      return [...prevState, newTodo];
-    });
+    // update redux todos list
+    AddTodo(newTodo);
 
     // reset states
     setId(initialState.id);

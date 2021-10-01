@@ -6,13 +6,10 @@ import { TableDataArray } from "../../shared/models/";
 // TODO: [9/29/2021] maybe change this to a class of "todo" in the future
 const initialState: TableDataArray["data"] = [];
 
-const reducer = (state = initialState, action: TodosActions) => {
+const reducer = (state = initialState, action: TodosActions): TableDataArray["data"] => {
   switch (action.type) {
     case TodosActionTypes.ADD_TODO:
-      return {
-        ...state,
-        todos: [...state, action.payload],
-      };
+      return [...state, action.payload];
     default:
       return state;
   }
