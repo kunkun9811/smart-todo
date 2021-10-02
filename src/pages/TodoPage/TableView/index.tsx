@@ -1,13 +1,15 @@
 import React, { useMemo } from "react";
 import { TableDataArray } from "../../../shared/models";
-import { Table, THead, HeadTr, TBody, BodyTr, Th, Td } from "./Styles";
 import { useTable } from "react-table";
 import { COLUMNS } from "../../../shared/constants/Columns";
+import { Table, THead, HeadTr, TBody, BodyTr, Th, Td } from "./Styles";
 
 const TableView: React.FC<TableDataArray> = ({ data }) => {
+  // recommended/required to use useMemo to prevent react-table from too much refreshing
   const columns = useMemo(() => COLUMNS, []);
   const todos = useMemo(() => data, [data]);
 
+  // react-table functions and properties
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = useTable({ columns: columns, data: todos });
 
   // KEY: NOTE: tried my best explaining the complex react-table functionalities
