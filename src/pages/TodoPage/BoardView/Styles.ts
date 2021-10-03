@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { makeStyles } from "@mui/styles"; // NOTE: 'makestyles' should be imported from this path
+import styled from "styled-components/macro";
+import { makeStyles } from "@mui/styles";
 
 /* styled components */
 export const BoardViewMainContainer = styled.div`
@@ -15,8 +15,9 @@ export const BoardViewMainContainer = styled.div`
   width: 80%;
   min-height: 300px;
   min-width: 200px; */
+  width: 100%;
 
-  background-color: teal;
+  /* background-color: teal; */
 `;
 
 export const BoardViewContentContainer = styled.div`
@@ -26,7 +27,7 @@ export const BoardViewContentContainer = styled.div`
   height: 95%;
   width: 95%;
 
-  background-color: pink;
+  /* background-color: pink; */
 `;
 
 export const BoardViewColumn = styled.div`
@@ -37,46 +38,59 @@ export const BoardViewColumn = styled.div`
   height: 90%;
   width: 15%;
   margin: 0 10px;
+  border-radius: 5px;
 
-  background-color: grey;
+  /* background-color: grey; */
 `;
 
 export const BoardViewColumnInfoContainer = styled.div`
-  display: grid;
-  grid-template-areas: "tag tag tag moreButton addButton";
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 5%;
   width: 100%;
 
-  background-color: green;
+  /* background-color: green; */
+`;
+
+export const BoardViedwColumnInfoWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  height: 100%;
+  width: 95%;
+  min-height: 30px;
+  min-width: 150px;
 `;
 
 export const BoardViewGroupNameContainer = styled.div`
-  grid-area: tag;
+  grid-column: 1/8;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   height: 100%;
   width: 100%;
 
-  background-color: red;
+  /* background-color: red; */
 `;
 
 export const BoardViewGroupNameWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 1px 2px;
+  padding: 1px 1px;
+  border-radius: 5px;
 
   background-color: skyblue;
 `;
 
 export const BoardViewGroupNameText = styled.p`
   margin: 0;
+  font-size: 0.7rem;
   color: black;
 `;
 
 export const BoardViewMoreButtonWrapper = styled.div`
-  grid-area: moreButton;
+  grid-column: 8/9;
   justify-self: center;
   align-self: center;
 
@@ -84,11 +98,11 @@ export const BoardViewMoreButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: lightblue;
+  /* background-color: lightblue; */
 `;
 
 export const BoardViewAddButtonWrapper = styled.div`
-  grid-area: addButton;
+  grid-column: 9/10;
   justify-self: center;
   align-self: center;
 
@@ -96,12 +110,12 @@ export const BoardViewAddButtonWrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  background-color: lightpink;
+  /* background-color: lightpink; */
 `;
 
 export const BoardViewCardContainer = styled.div`
   height: 5%;
-  width: 80%;
+  width: 95%;
   min-height: 30px;
   min-width: 150px;
   margin: 5px 0;
@@ -111,10 +125,9 @@ export const BoardViewCardContainer = styled.div`
 `;
 
 /* material UI themes */
-// TODO: not sure why this styling isn't working all of a sudden
 export const useStyles = makeStyles({
   columnButton: {
-    height: 1,
-    width: 1,
+    height: "12px !important",
+    width: "12px !important",
   },
 });
