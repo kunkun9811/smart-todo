@@ -86,10 +86,12 @@ export const BoardViewGroupNameText = styled.p`
 `;
 
 export const BoardViewMoreButtonWrapper = styled.div`
+  /* grid */
   grid-column: 8/9;
-  justify-self: center;
+  justify-self: flex-end;
   align-self: center;
 
+  /* flexbox */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -98,10 +100,12 @@ export const BoardViewMoreButtonWrapper = styled.div`
 `;
 
 export const BoardViewAddButtonWrapper = styled.div`
+  /* grid */
   grid-column: 9/10;
-  justify-self: center;
+  justify-self: flex-end;
   align-self: center;
 
+  /* flexbox */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,7 +127,7 @@ export const BoardViewCardContainer = styled.div`
 /* material UI themes */
 export const useStyles = makeStyles({
   columnButton: {
-    height: "12px !important",
-    width: "12px !important",
+    height: "15px !important",
+    width: "15px !important",
   },
 });
