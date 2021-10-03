@@ -7,15 +7,8 @@ export const BoardViewMainContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
-  /* TODO: [10/1/2021] - figure out the best way to set height and width */
-  height: 800px;
-  width: 1500px;
-  /* height: 80%;
-  width: 80%;
-  min-height: 300px;
-  min-width: 200px; */
   width: 100%;
+  overflow: auto;
 
   /* background-color: teal; */
 `;
@@ -23,9 +16,11 @@ export const BoardViewMainContainer = styled.div`
 export const BoardViewContentContainer = styled.div`
   display: flex;
   justify-content: flex-start;
-  align-items: center;
-  height: 95%;
-  width: 95%;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 180px;
+  overflow: auto;
 
   /* background-color: pink; */
 `;
@@ -37,6 +32,7 @@ export const BoardViewColumn = styled.div`
   align-items: center;
   height: 90%;
   width: 15%;
+  min-width: 150px;
   margin: 0 10px;
   border-radius: 5px;
 

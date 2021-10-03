@@ -49,11 +49,41 @@ const BoardView: React.FC<TableDataArray> = ({ data }) => {
           <BoardViewCardContainer />
         </BoardViewColumn>
         <BoardViewColumn>
+          <BoardViewColumnInfoContainer>
+            <BoardViedwColumnInfoWrapper>
+              <BoardViewGroupNameContainer>
+                <BoardViewGroupNameWrapper>
+                  <BoardViewGroupNameText>Tag</BoardViewGroupNameText>
+                </BoardViewGroupNameWrapper>
+              </BoardViewGroupNameContainer>
+              <BoardViewMoreButtonWrapper>
+                <MoreHorizIcon className={classes.columnButton} />
+              </BoardViewMoreButtonWrapper>
+              <BoardViewAddButtonWrapper>
+                <AddIcon className={classes.columnButton} />
+              </BoardViewAddButtonWrapper>
+            </BoardViedwColumnInfoWrapper>
+          </BoardViewColumnInfoContainer>
           <BoardViewColumnInfoContainer></BoardViewColumnInfoContainer>
           <BoardViewCardContainer />
           <BoardViewCardContainer />
         </BoardViewColumn>
         <BoardViewColumn>
+          <BoardViewColumnInfoContainer>
+            <BoardViedwColumnInfoWrapper>
+              <BoardViewGroupNameContainer>
+                <BoardViewGroupNameWrapper>
+                  <BoardViewGroupNameText>Tag</BoardViewGroupNameText>
+                </BoardViewGroupNameWrapper>
+              </BoardViewGroupNameContainer>
+              <BoardViewMoreButtonWrapper>
+                <MoreHorizIcon className={classes.columnButton} />
+              </BoardViewMoreButtonWrapper>
+              <BoardViewAddButtonWrapper>
+                <AddIcon className={classes.columnButton} />
+              </BoardViewAddButtonWrapper>
+            </BoardViedwColumnInfoWrapper>
+          </BoardViewColumnInfoContainer>
           <BoardViewColumnInfoContainer></BoardViewColumnInfoContainer>
           <BoardViewCardContainer />
           <BoardViewCardContainer />

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 export const AppContainer = styled.div`
   display: flex;
@@ -7,6 +7,4 @@ export const AppContainer = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-
-  overflow: scroll;
 `;
