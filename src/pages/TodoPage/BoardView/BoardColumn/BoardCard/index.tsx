@@ -1,7 +1,7 @@
-import React from "react";
+import { BoardCardContainer } from "./Styles";
 
 const BoardCard = () => {
-  return <div></div>;
+  return <BoardCardContainer></BoardCardContainer>;
 };
 
 export default BoardCard;

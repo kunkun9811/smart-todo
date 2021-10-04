@@ -1,7 +1,7 @@
 import styled from "styled-components/macro";
 import { makeStyles } from "@mui/styles";
 
-export const BoardViewColumn = styled.div`
+export const BoardColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -15,7 +15,7 @@ export const BoardViewColumn = styled.div`
   /* background-color: grey; */
 `;
 
-export const BoardViewColumnInfoContainer = styled.div`
+export const BoardColumnInfoContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,7 +25,7 @@ export const BoardViewColumnInfoContainer = styled.div`
   /* background-color: green; */
 `;
 
-export const BoardViedwColumnInfoWrapper = styled.div`
+export const BoardColumnInfoWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(9, 1fr);
   height: 100%;
@@ -34,7 +34,7 @@ export const BoardViedwColumnInfoWrapper = styled.div`
   min-width: 150px;
 `;
 
-export const BoardViewGroupNameContainer = styled.div`
+export const BoardColumnGroupNameContainer = styled.div`
   grid-column: 1/8;
   display: flex;
   justify-content: flex-start;
@@ -45,7 +45,7 @@ export const BoardViewGroupNameContainer = styled.div`
   /* background-color: red; */
 `;
 
-export const BoardViewGroupNameWrapper = styled.div`
+export const BoardColumnGroupNameWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -55,13 +55,13 @@ export const BoardViewGroupNameWrapper = styled.div`
   background-color: skyblue;
 `;
 
-export const BoardViewGroupNameText = styled.p`
+export const BoardColumnGroupNameText = styled.p`
   margin: 0;
   font-size: 0.7rem;
   color: black;
 `;
 
-export const BoardViewMoreButtonWrapper = styled.div`
+export const BoardColumnMoreButtonWrapper = styled.div`
   /* grid */
   grid-column: 8/9;
   justify-self: flex-end;
@@ -75,7 +75,7 @@ export const BoardViewMoreButtonWrapper = styled.div`
   /* background-color: lightblue; */
 `;
 
-export const BoardViewAddButtonWrapper = styled.div`
+export const BoardColumnAddButtonWrapper = styled.div`
   /* grid */
   grid-column: 9/10;
   justify-self: flex-end;
@@ -89,7 +89,7 @@ export const BoardViewAddButtonWrapper = styled.div`
   /* background-color: lightpink; */
 `;
 
-export const BoardViewCardContainer = styled.div`
+export const BoardColumnCardContainer = styled.div`
   height: 5%;
   width: 95%;
   min-height: 30px;
