@@ -8,7 +8,7 @@ export const BoardColumnContainer = styled.div`
   align-items: center;
   height: 90%;
   width: 15%;
-  min-width: 150px;
+  min-width: 250px;
   margin: 0 10px;
   border-radius: 5px;
 
