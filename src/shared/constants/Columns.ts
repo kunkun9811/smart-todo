@@ -8,6 +8,18 @@ export const COLUMNS = [
     accessor: "id" as const,
   },
   {
+    Header: "Group",
+    accessor: "group" as const,
+  },
+  {
+    Header: "Tags",
+    accessor: "tag" as const,
+  },
+  {
+    Header: "Title",
+    accessor: "title" as const,
+  },
+  {
     Header: "Description",
     accessor: "description" as const,
   },
@@ -16,7 +28,11 @@ export const COLUMNS = [
     accessor: "due_date" as const,
   },
   {
-    Header: "Priority",
-    accessor: "priority" as const,
+    Header: "Board Order",
+    accessor: "boardOrder" as const,
+  },
+  {
+    Header: "Table Order",
+    accessor: "tableOrder" as const,
   },
 ];
