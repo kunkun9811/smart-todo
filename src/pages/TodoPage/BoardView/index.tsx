@@ -8,14 +8,16 @@ const BoardView: React.FC<TableDataArray> = ({ data }) => {
   return (
     <BoardViewMainContainer>
       {/* DEBUG: Mock view */}
-      <BoardViewContentContainer>
+      {/* <BoardViewContentContainer>
         <BoardColumn />
         <BoardColumn />
         <BoardColumn />
         <BoardColumn />
         <BoardColumn />
         <BoardColumn />
-      </BoardViewContentContainer>
+      </BoardViewContentContainer> */}
+      {/* NOTE: Official code */}
+      <BoardViewContentContainer></BoardViewContentContainer>
     </BoardViewMainContainer>
   );
 };
