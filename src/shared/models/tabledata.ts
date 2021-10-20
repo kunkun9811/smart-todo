@@ -1,6 +1,6 @@
 // TODO: [9/24/2021] might need to update this
 // TODO: [9/29/2021] maybe change this to a class of "todo" in the future
-export interface TableDatum {
+export interface Datum {
   id: number;
   group: string;
   tags: string[];
@@ -11,8 +11,8 @@ export interface TableDatum {
   tableOrder: number;
 }
 
-export interface TableDataArray {
-  data: TableDatum[];
+export interface DataArray {
+  data: Datum[];
 }
 
 export interface ColumnsStructure {

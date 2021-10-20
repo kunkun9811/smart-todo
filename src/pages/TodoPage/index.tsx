@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TodoPageContainer } from "./Styles";
-import { TableDataArray, TableDatum } from "../../shared/models";
+import { DataArray, Datum } from "../../shared/models";
 import TableView from "./TableView";
 import BoardView from "./BoardView";
 
@@ -14,9 +14,13 @@ import MOCK_DATA from "../../mock-data/todos.json";
 
 const initialState = {
   id: 0,
+  group: "",
+  tags: [],
+  title: "",
   description: "",
   dueDate: "",
-  priority: "",
+  boardOrder: -1,
+  tableOrder: -1,
   // TODO: [9/30/2021] delete this later, [data] should be populated from database
   data: MOCK_DATA,
 };
@@ -31,22 +35,20 @@ const TodoPage = () => {
   const todos = useSelector((state: State) => state.todos);
 
   // states for user inputs
-  const [id, setId] = useState<TableDatum["id"]>(initialState.id);
-  const [description, setDescription] = useState<TableDatum["description"]>(initialState.description);
-  const [dueDate, setDueDate] = useState<TableDatum["due_date"]>(initialState.dueDate);
-  const [priority, setPriority] = useState<TableDatum["priority"]>(initialState.priority);
+  const [id, setId] = useState<Datum["id"]>(initialState.id);
+  const [group, setGroup] = useState<Datum["group"]>(initialState.group);
+  const [tags, setTags] = useState<Datum["tags"]>(initialState.tags);
+  const [title, setTitle] = useState<Datum["title"]>(initialState.title);
+  const [description, setDescription] = useState<Datum["description"]>(initialState.description);
+  const [dueDate, setDueDate] = useState<Datum["due_date"]>(initialState.dueDate);
+  const [boardOrder, setBoardOrder] = useState<Datum["boardOrder"]>(initialState.boardOrder);
+  const [tableOrder, setTableOrder] = useState<Datum["tableOrder"]>(initialState.tableOrder);
   // const [todos, setTodos] = useState<TableDataArray["data"]>(initialState.data); // DEBUG: If want to just have mock_data populated, uncomment this
 
   // add new todo from user inputs
   const addTodo = (): void => {
-    if (description === "" && priority === "") {
-      alert("Please enter both the 'description' and the 'priority'");
-      return;
-    } else if (description === "") {
-      alert("Please the 'description'");
-      return;
-    } else if (priority === "") {
-      alert("Please enter the 'priority'");
+    if (description === "") {
+      alert("Please enter the 'description'");
       return;
     }
 
@@ -55,18 +57,22 @@ const TodoPage = () => {
     if (id === 0) logString += "Please Enter [id]\n";
     if (description.length === 0) logString += "Please Enter [description]\n";
     if (dueDate.length === 0) logString += "Please Enter [due date]\n";
-    if (priority.length === 0) logString += "Please Enter [Priority]\n";
+    // if (priority.length === 0) logString += "Please Enter [Priority]\n";
     if (logString.length > 0) {
       alert(logString);
       return;
     }
 
     // construct new todo
-    const newTodo: TableDatum = {
+    const newTodo: Datum = {
       id,
+      group,
+      tags,
+      title,
       description,
       due_date: dueDate,
-      priority,
+      boardOrder,
+      tableOrder,
     };
 
     // update redux todos list
@@ -76,7 +82,7 @@ const TodoPage = () => {
     setId(initialState.id);
     setDescription(initialState.description);
     setDueDate(initialState.dueDate);
-    setPriority(initialState.priority);
+    // setPriority(initialState.priority);
 
     // clear input values
     Array.from(document.querySelectorAll("input")).forEach((input) => (input.value = ""));
@@ -110,14 +116,14 @@ const TodoPage = () => {
           setDueDate(e.target.value);
         }}
       />
-      <input
+      {/* <input
         id="priority"
         type="text"
         placeholder="priority"
         onChange={(e) => {
           setPriority(e.target.value);
         }}
-      />
+      /> */}
       <button onClick={() => addTodo()}>Add</button>
 
       {/* TODO: [9/30/2021] - do conditional rendering */}

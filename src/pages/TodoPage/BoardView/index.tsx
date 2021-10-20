@@ -1,10 +1,10 @@
 import React from "react";
-import { TableDataArray } from "../../../shared/models";
+import { DataArray } from "../../../shared/models";
 import { BoardViewMainContainer, BoardViewContentContainer } from "./Styles";
 import BoardColumn from "./BoardColumn";
 
 // TODO: [10/1/2021] Going to implement my own Kandan's View by using classes
-const BoardView: React.FC<TableDataArray> = ({ data }) => {
+const BoardView: React.FC<DataArray> = ({ data }) => {
   return (
     <BoardViewMainContainer>
       {/* DEBUG: Mock view */}
