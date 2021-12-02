@@ -4,7 +4,7 @@ import { TodosActionTypes } from "../action-types";
 // action types
 interface PopulateTodosAction {
   type: TodosActionTypes.POPULATE_TODOS;
-  payload: DataArray;
+  payload: DataArray["data"];
 }
 
 interface AddTodoAction {

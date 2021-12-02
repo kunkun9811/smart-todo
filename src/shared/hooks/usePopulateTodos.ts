@@ -1,3 +1,5 @@
+/* NOTE: DEPRECATED */
+
 import { useEffect } from "react";
 import { BACKEND_DATABASE_URL } from "../constants/API";
 
