@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { TodoPageContainer } from "./Styles";
 import { DataArray, Datum } from "../../shared/models";
-import TableView from "./TableView";
 import BoardView from "./BoardView";
 
 // redux imports
@@ -126,11 +125,7 @@ const TodoPage = () => {
       /> */}
       <button onClick={() => addTodo()}>Add</button>
 
-      {/* TODO: [9/30/2021] - do conditional rendering */}
-      {/* view type #1: table view */}
-      {/* <TableView data={todos} /> */}
-
-      {/* view type #2: board view/kanban board */}
+      {/* board view/kanban board */}
       <BoardView data={todos} />
     </TodoPageContainer>
   );
