@@ -2,6 +2,10 @@
 
 A smart todo application with assistant bot that help you extract requested information without user digging through their todos
 
+## Branch Info
+
+- [table-view-deprecated] : this branch was my initial approach in doing both board view and table view. Due to my own decision, I decided to focus on **board view** and **calendar functionalities**
+
 ## Important Info/updates
 
 - Currently using JSON Server [https://github.com/typicode/json-server] as mock server for now. The JSON mock server data repo is @ [https://github.com/kunkun9811/smart-todo-mock-server/tree/main]
@@ -14,5 +18,3 @@ A smart todo application with assistant bot that help you extract requested info
 ## Checkpoint
 
 - About to refactor everything with the new structure of our TODO data. [TodoPage/index.ts] is not done yet. Add input fields, make custom hooks for automatically detect the next "id", "boardOrder", and "tableOrder".
-
-- Need to fix React-Table [TableView/index.ts] file. The 'column' for react-table seems to not be working with the new data structure for todo.
