@@ -7,9 +7,6 @@ import BoardView from "./BoardView";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { TodosActionCreators, State } from "../../state";
-
-//TODO: [9/30/2021] the below data shouldn't be from MOCK_DATA in the future, [data] should be populated from database
-import MOCK_DATA from "../../mock-data/todos.json";
 import usePopulateTodos from "../../shared/hooks/usePopulateTodos";
 
 const initialState = {
@@ -24,8 +21,6 @@ const initialState = {
   tagId: 0, // 0 means no tag/group
   tagName: "",
   tagColor: "",
-  // TODO: [9/30/2021] delete this later, [data] should be populated from database
-  data: MOCK_DATA,
 };
 
 const TodoPage = () => {
@@ -35,7 +30,7 @@ const TodoPage = () => {
   // get action creators
   const { AddTodo } = bindActionCreators(TodosActionCreators, dispatch);
   // state in the store TODO: need to maybe delete the [todos] variable at line 37
-  const todos = useSelector((state: State) => state.todos);
+  const todos: DataArray["data"] = useSelector((state: State) => state.todos);
 
   // states for user inputs
   const [id, setId] = useState<Datum["id"]>(initialState.id);
@@ -49,11 +44,12 @@ const TodoPage = () => {
   const [tagId, setTagId] = useState<Datum["tagId"]>(initialState.tagId);
   const [tagName, setTagName] = useState<Datum["tagName"]>(initialState.tagName);
   const [tagColor, setTagColor] = useState<Datum["tagColor"]>(initialState.tagColor);
-  // const [todos, setTodos] = useState<TableDataArray["data"]>(initialState.data); // DEBUG: If want to just have mock_data populated, uncomment this
 
   /* effects */
+  // populate todos from database
   usePopulateTodos();
 
+  /* methods */
   // add new todo from user inputs
   const addTodo = (): void => {
     if (description === "") {
@@ -102,6 +98,7 @@ const TodoPage = () => {
     Array.from(document.querySelectorAll("input")).forEach((input) => (input.value = ""));
   };
 
+  // TODO: [12/2/2021] need to add more inputs
   return (
     <TodoPageContainer>
       {/* TODO: [9/30/2021] Make Input Component in the future */}

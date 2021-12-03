@@ -80,6 +80,10 @@ const BoardView: React.FC<DataArray> = ({ data }) => {
   // } else {
   //   return <div>Loading</div>;
   // }
+
+  console.log("===Rerendered BoardView===");
+  console.log(tags);
+
   return (
     <BoardViewMainContainer>
       {/* NOTE: Official code */}

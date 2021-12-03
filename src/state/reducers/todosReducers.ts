@@ -7,12 +7,14 @@ import { DataArray } from "../../shared/models/";
 // NOTE: state's type is an array of TableData type => look at [models/tabledata.ts]
 const initialState: DataArray["data"] = [];
 
-const reducer = (state = initialState, action: TodosActions): DataArray["data"] => {
+const reducer = (state: DataArray["data"] = initialState, action: TodosActions): DataArray["data"] => {
   switch (action.type) {
     case TodosActionTypes.ADD_TODO:
       return [...state, action.payload];
     case TodosActionTypes.POPULATE_TODOS:
       return [...state, ...action.payload];
+    case TodosActionTypes.CLEAR_TODOS:
+      return [];
     default:
       return state;
   }

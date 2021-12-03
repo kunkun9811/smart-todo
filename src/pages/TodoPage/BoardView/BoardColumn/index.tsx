@@ -67,13 +67,15 @@ const BoardColumn: React.FC<DataArray> = ({ data }) => {
 
       {/* cards TODO: [10/3/2021] - need to add functionalities and style for board card */}
       {/* DEBUG: Mock View */}
+      {/* <BoardCard />
       <BoardCard />
       <BoardCard />
-      <BoardCard />
-      <BoardCard />
-      {/* {data.map((info: Datum) => (
-        <BoardCard {...info} />
-      ))} */}
+      <BoardCard /> */}
+      {/* TODO: need to change BoardCard */}
+      {data.map((info: Datum) => (
+        // <BoardCard {...info} />
+        <BoardCard />
+      ))}
     </BoardColumnContainer>
   );
 };
