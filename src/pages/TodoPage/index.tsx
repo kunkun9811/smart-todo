@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TodoPageContainer } from "./Styles";
-import { DataArray, Datum } from "../../shared/models";
+import { DataArray, Datum, Priority } from "../../shared/models";
 import BoardView from "./BoardView";
 
 // redux imports
@@ -10,16 +10,20 @@ import { TodosActionCreators, State } from "../../state";
 
 //TODO: [9/30/2021] the below data shouldn't be from MOCK_DATA in the future, [data] should be populated from database
 import MOCK_DATA from "../../mock-data/todos.json";
+import usePopulateTodos from "../../shared/hooks/usePopulateTodos";
 
 const initialState = {
-  id: 0,
+  id: -1,
   group: "",
   tags: [],
   title: "",
   description: "",
   dueDate: "",
+  priority: Priority.HIGH,
   boardOrder: -1,
-  tableOrder: -1,
+  tagId: 0, // 0 means no tag/group
+  tagName: "",
+  tagColor: "",
   // TODO: [9/30/2021] delete this later, [data] should be populated from database
   data: MOCK_DATA,
 };
@@ -40,9 +44,15 @@ const TodoPage = () => {
   const [title, setTitle] = useState<Datum["title"]>(initialState.title);
   const [description, setDescription] = useState<Datum["description"]>(initialState.description);
   const [dueDate, setDueDate] = useState<Datum["due_date"]>(initialState.dueDate);
+  const [priority, setPriority] = useState<Datum["priority"]>(initialState.priority);
   const [boardOrder, setBoardOrder] = useState<Datum["boardOrder"]>(initialState.boardOrder);
-  const [tableOrder, setTableOrder] = useState<Datum["tableOrder"]>(initialState.tableOrder);
+  const [tagId, setTagId] = useState<Datum["tagId"]>(initialState.tagId);
+  const [tagName, setTagName] = useState<Datum["tagName"]>(initialState.tagName);
+  const [tagColor, setTagColor] = useState<Datum["tagColor"]>(initialState.tagColor);
   // const [todos, setTodos] = useState<TableDataArray["data"]>(initialState.data); // DEBUG: If want to just have mock_data populated, uncomment this
+
+  /* effects */
+  usePopulateTodos();
 
   // add new todo from user inputs
   const addTodo = (): void => {
@@ -53,10 +63,9 @@ const TodoPage = () => {
 
     // check if inputs are all valid
     let logString = "";
-    if (id === 0) logString += "Please Enter [id]\n";
+    if (id === -1) logString += "Please Enter [id]\n";
     if (description.length === 0) logString += "Please Enter [description]\n";
     if (dueDate.length === 0) logString += "Please Enter [due date]\n";
-    // if (priority.length === 0) logString += "Please Enter [Priority]\n";
     if (logString.length > 0) {
       alert(logString);
       return;
@@ -70,18 +79,24 @@ const TodoPage = () => {
       title,
       description,
       due_date: dueDate,
+      priority,
       boardOrder,
-      tableOrder,
+      tagId,
+      tagName,
+      tagColor,
     };
 
     // update redux todos list
     AddTodo(newTodo);
 
+    console.log("---Added New Todo!---");
+    console.log(newTodo);
+
     // reset states
     setId(initialState.id);
     setDescription(initialState.description);
     setDueDate(initialState.dueDate);
-    // setPriority(initialState.priority);
+    setPriority(initialState.priority);
 
     // clear input values
     Array.from(document.querySelectorAll("input")).forEach((input) => (input.value = ""));
@@ -109,20 +124,35 @@ const TodoPage = () => {
       />
       <input
         id="due_date"
-        type="text"
+        type="date"
         placeholder="due date"
         onChange={(e) => {
-          setDueDate(e.target.value);
+          // NOTE: upon further research, JavaScript Date object acts strangely, so we need to process the input value first by changing '-' to '/' and
+          // removing strings after 'T' if there is one since we do not care about exact time for now
+          // refer to https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off?rq=1
+          const formattedDateString = e.target.value.replace(/-/g, "/").replace(/T.+/, "");
+          const date = new Date(formattedDateString);
+          var month: string = (date.getMonth() + 1).toString();
+          var day: string = date.getDate().toString();
+          var year: string = date.getFullYear().toString();
+
+          if (month.length < 2) month = "0" + month;
+          if (day.length < 2) day = "0" + day;
+
+          var newDate: string = [month, day, year].join("/");
+
+          setDueDate(newDate);
         }}
       />
-      {/* <input
+      {/* TODO: need to change this so that there are only 3 options, low, med, high */}
+      <input
         id="priority"
         type="text"
         placeholder="priority"
         onChange={(e) => {
-          setPriority(e.target.value);
+          setPriority(parseInt(e.target.value));
         }}
-      /> */}
+      />
       <button onClick={() => addTodo()}>Add</button>
 
       {/* board view/kanban board */}

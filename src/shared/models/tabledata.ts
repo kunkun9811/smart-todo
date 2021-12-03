@@ -1,5 +1,11 @@
+/* local interfaces/model */
+export enum Priority {
+  LOW,
+  MED,
+  HIGH,
+}
+
 // TODO: [9/24/2021] might need to update this
-// TODO: [9/29/2021] maybe change this to a class of "todo" in the future
 export interface Datum {
   id: number;
   group: string;
@@ -7,8 +13,11 @@ export interface Datum {
   title: string;
   description: string;
   due_date: string;
+  priority: Priority; // 0-low, 1-medium, 2-high
   boardOrder: number;
-  tableOrder: number;
+  tagId: number;
+  tagName: string;
+  tagColor: string;
 }
 
 export interface DataArray {
