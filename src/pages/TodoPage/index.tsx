@@ -85,6 +85,7 @@ const TodoPage = () => {
     // update redux todos list
     AddTodo(newTodo);
 
+    // DEBUG:
     console.log("---Added New Todo!---");
     console.log(newTodo);
 
@@ -99,6 +100,7 @@ const TodoPage = () => {
   };
 
   // TODO: [12/2/2021] need to add more inputs
+  // TODO: [12/3/2021] might need to change inputs to use useRefs because it is rerendering each time i type
   return (
     <TodoPageContainer>
       {/* TODO: [9/30/2021] Make Input Component in the future */}

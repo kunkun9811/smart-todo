@@ -31,6 +31,9 @@ const BoardView: React.FC<DataArray> = ({ data }) => {
   useEffect(() => {
     const allTags: BoardViewStates["tags"] = getAllTags(data);
 
+    console.log("-------------allTags-------------");
+    console.log(allTags);
+
     // group all todos by tags
     // const procTodos: BoardViewStates["processedTodos"] = {};
     // allTags.forEach((currentTagId: number) => {
@@ -44,7 +47,7 @@ const BoardView: React.FC<DataArray> = ({ data }) => {
     setTags(allTags);
     // mark content ready to display
     setIsReady(true);
-  }, []);
+  }, [data]);
 
   /* methods */
   const getAllTags = (data: DataArray["data"]): BoardViewStates["tags"] => {

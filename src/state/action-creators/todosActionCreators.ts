@@ -14,6 +14,9 @@ export const AddTodo = (todo: Datum) => {
 };
 
 export const PopulateTodos = (todos: DataArray["data"]) => {
+  // DEBUG:
+  console.log("In PopulateTodos");
+  console.log(todos);
   return (dispatch: Dispatch<TodosActions>) => {
     dispatch({
       type: TodosActionTypes.POPULATE_TODOS,
@@ -23,6 +26,8 @@ export const PopulateTodos = (todos: DataArray["data"]) => {
 };
 
 export const ClearTodos = () => {
+  // DEBUG:
+  console.log("In ClearTodos");
   return (dispatch: Dispatch<TodosActions>) => {
     dispatch({
       type: TodosActionTypes.CLEAR_TODOS,

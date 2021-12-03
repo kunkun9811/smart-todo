@@ -74,7 +74,7 @@ const BoardColumn: React.FC<DataArray> = ({ data }) => {
       {/* TODO: need to change BoardCard */}
       {data.map((info: Datum) => (
         // <BoardCard {...info} />
-        <BoardCard />
+        <BoardCard key={info["id"]} />
       ))}
     </BoardColumnContainer>
   );

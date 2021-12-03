@@ -4,6 +4,6 @@ import reducers from "./reducers";
 
 export const store = createStore(
   reducers,
-  {}, // store intial state
+  {}, // store's intial state
   applyMiddleware(thunk)
 );
