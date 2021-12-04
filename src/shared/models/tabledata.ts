@@ -8,7 +8,7 @@ export enum Priority {
 // TODO: [9/24/2021] might need to update this
 export interface Datum {
   id: number;
-  group: string; // NOTE: this could be deleted I think
+  group: string; // TODO: this could be deleted I think
   tags: string[];
   title: string;
   description: string;
