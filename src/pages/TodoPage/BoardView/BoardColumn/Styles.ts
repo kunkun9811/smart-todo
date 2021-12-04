@@ -1,6 +1,11 @@
 import styled from "styled-components/macro";
 import { makeStyles } from "@mui/styles";
 
+/* local interfaces */
+interface IBoardColumnGroupNameWrapper {
+  groupColor: string;
+}
+
 export const BoardColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -45,14 +50,15 @@ export const BoardColumnGroupNameContainer = styled.div`
   /* background-color: red; */
 `;
 
-export const BoardColumnGroupNameWrapper = styled.div`
+export const BoardColumnGroupNameWrapper = styled.div<IBoardColumnGroupNameWrapper>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 1px 1px;
+  padding: 5px 5px;
   border-radius: 5px;
 
-  background-color: skyblue;
+  /* TODO: pass in color here */
+  background-color: ${(props) => (props.groupColor ? props.groupColor : "grey")};
 `;
 
 export const BoardColumnGroupNameText = styled.p`

@@ -11,7 +11,6 @@ import usePopulateTodos from "../../shared/hooks/usePopulateTodos";
 
 const initialState = {
   id: -1,
-  group: "",
   tags: [],
   title: "",
   description: "",
@@ -34,7 +33,6 @@ const TodoPage = () => {
 
   // states for user inputs
   const [id, setId] = useState<Datum["id"]>(initialState.id);
-  const [group, setGroup] = useState<Datum["group"]>(initialState.group);
   const [tags, setTags] = useState<Datum["tags"]>(initialState.tags);
   const [title, setTitle] = useState<Datum["title"]>(initialState.title);
   const [description, setDescription] = useState<Datum["description"]>(initialState.description);
@@ -70,7 +68,6 @@ const TodoPage = () => {
     // construct new todo
     const newTodo: Datum = {
       id,
-      group,
       tags,
       title,
       description,

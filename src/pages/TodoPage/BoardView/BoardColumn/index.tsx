@@ -25,11 +25,13 @@ import { DataArray, Datum } from "../../../../shared/models";
 /* local interfaces/models */
 interface BoardColumnStates {
   groupName: Datum["groupName"];
+  groupColor: Datum["groupColor"];
 }
 
 /* local initial states */
 const initialState: BoardColumnStates = {
   groupName: "",
+  groupColor: "",
 };
 
 // NOTE: this is saying "this functino takes in parameter 'DataArray'" and at the actualy
@@ -38,10 +40,12 @@ const BoardColumn: React.FC<DataArray> = ({ data }) => {
   const classes = useStyles();
 
   const [groupName, setGroupName] = useState<BoardColumnStates["groupName"]>(initialState.groupName);
+  const [groupColor, setGroupColor] = useState<BoardColumnStates["groupColor"]>(initialState.groupColor);
 
   /* effects */
   useEffect(() => {
     setGroupName(data[0]["groupName"]);
+    setGroupColor(data[0]["groupColor"]);
   }, [data]);
 
   return (
@@ -50,7 +54,7 @@ const BoardColumn: React.FC<DataArray> = ({ data }) => {
       <BoardColumnInfoContainer>
         <BoardColumnInfoWrapper>
           <BoardColumnGroupNameContainer>
-            <BoardColumnGroupNameWrapper>
+            <BoardColumnGroupNameWrapper groupColor={groupColor}>
               <BoardColumnGroupNameText>{groupName}</BoardColumnGroupNameText>
             </BoardColumnGroupNameWrapper>
           </BoardColumnGroupNameContainer>

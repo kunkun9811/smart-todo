@@ -6,8 +6,8 @@ const BoardCard: React.FC<Datum> = (props) => {
   return (
     <BoardCardContainer>
       {/* TODO: need to add tags */}
-      {/* TODO: need to change this to title */}
-      <BoardCardText>{props.description}</BoardCardText>
+
+      <BoardCardText>{props.title}</BoardCardText>
     </BoardCardContainer>
   );
 };
