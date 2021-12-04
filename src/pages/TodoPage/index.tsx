@@ -18,9 +18,9 @@ const initialState = {
   dueDate: "",
   priority: Priority.HIGH,
   boardOrder: -1,
-  tagId: 0, // 0 means no tag/group
-  tagName: "",
-  tagColor: "",
+  groupId: 0, // 0 means no group/column
+  groupName: "",
+  groupColor: "",
 };
 
 const TodoPage = () => {
@@ -41,9 +41,9 @@ const TodoPage = () => {
   const [dueDate, setDueDate] = useState<Datum["due_date"]>(initialState.dueDate);
   const [priority, setPriority] = useState<Datum["priority"]>(initialState.priority);
   const [boardOrder, setBoardOrder] = useState<Datum["boardOrder"]>(initialState.boardOrder);
-  const [tagId, setTagId] = useState<Datum["tagId"]>(initialState.tagId);
-  const [tagName, setTagName] = useState<Datum["tagName"]>(initialState.tagName);
-  const [tagColor, setTagColor] = useState<Datum["tagColor"]>(initialState.tagColor);
+  const [groupId, setGroupId] = useState<Datum["groupId"]>(initialState.groupId);
+  const [groupName, setGroupName] = useState<Datum["groupName"]>(initialState.groupName);
+  const [groupColor, setGroupColor] = useState<Datum["groupColor"]>(initialState.groupColor);
 
   /* effects */
   // populate todos from database
@@ -77,9 +77,9 @@ const TodoPage = () => {
       due_date: dueDate,
       priority,
       boardOrder,
-      tagId,
-      tagName,
-      tagColor,
+      groupId,
+      groupName,
+      groupColor,
     };
 
     // update redux todos list
