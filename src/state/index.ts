@@ -1,4 +1,4 @@
-/* Export all the action creators + the store in one file */
+/* NOTE: Export all the action creators + the store in one file */
 
 /* all the action creators */
 /*
@@ -8,6 +8,7 @@ without the alias
  */
 // export * as actionCreators from "./action-creators";
 export { TodosActionCreators } from "./action-creators";
+export { SectionActionCreators } from "./action-creators";
 
 /* the store */
 export * from "./store";
