@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import todosReducer from "./todosReducers";
+import todosReducer from "./todosReducer";
+import sectionReducer from "./sectionReducer";
 
 const reducers = combineReducers({
   todos: todosReducer,
+  section: sectionReducer,
 });
 
 export default reducers;

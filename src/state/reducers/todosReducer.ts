@@ -2,12 +2,12 @@
 
 import { TodosActionTypes } from "../action-types";
 import { TodosActions } from "../actions";
-import { DataArray } from "../../shared/models/";
+import { DataArray } from "../../shared/models";
 
 // NOTE: state's type is an array of TableData type => look at [models/tabledata.ts]
 const initialState: DataArray["data"] = [];
 
-const reducer = (state: DataArray["data"] = initialState, action: TodosActions): DataArray["data"] => {
+const todosReducer = (state: DataArray["data"] = initialState, action: TodosActions): DataArray["data"] => {
   switch (action.type) {
     case TodosActionTypes.ADD_TODO:
       return [...state, action.payload];
@@ -20,4 +20,4 @@ const reducer = (state: DataArray["data"] = initialState, action: TodosActions):
   }
 };
 
-export default reducer;
+export default todosReducer;

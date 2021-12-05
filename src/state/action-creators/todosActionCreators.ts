@@ -1,8 +1,8 @@
 /* NOTE: this file contains ALL the "Action Creators" for TodosReducer */
 import { DataArray, Datum } from "../../shared/models";
 import { TodosActionTypes } from "../action-types";
-import { Dispatch } from "redux"; // KEY: get the "Dispatch type" from redux
 import { TodosActions } from "../actions";
+import { Dispatch } from "redux"; // KEY: get the "Dispatch type" from redux
 
 export const AddTodo = (todo: Datum) => {
   return (dispatch: Dispatch<TodosActions>) => {

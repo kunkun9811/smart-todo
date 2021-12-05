@@ -11,12 +11,13 @@ import usePopulateTodos from "../../shared/hooks/usePopulateTodos";
 
 const initialState = {
   id: -1,
+  sectionId: -1,
   tags: [],
   title: "",
   description: "",
   dueDate: "",
   priority: Priority.HIGH,
-  boardOrder: -1,
+  columnPos: -1,
   groupId: 0, // 0 means no group/column
   groupName: "",
   groupColor: "",
@@ -33,12 +34,13 @@ const TodoPage = () => {
 
   // states for user inputs
   const [id, setId] = useState<Datum["id"]>(initialState.id);
+  const [sectionId, setSectionId] = useState<Datum["sectionId"]>(initialState.sectionId); // TODO: might not need this actually? we could just get this from "section" redux state later
   const [tags, setTags] = useState<Datum["tags"]>(initialState.tags);
   const [title, setTitle] = useState<Datum["title"]>(initialState.title);
   const [description, setDescription] = useState<Datum["description"]>(initialState.description);
   const [dueDate, setDueDate] = useState<Datum["due_date"]>(initialState.dueDate);
   const [priority, setPriority] = useState<Datum["priority"]>(initialState.priority);
-  const [boardOrder, setBoardOrder] = useState<Datum["boardOrder"]>(initialState.boardOrder);
+  const [columnPos, setColumnPos] = useState<Datum["columnPos"]>(initialState.columnPos);
   const [groupId, setGroupId] = useState<Datum["groupId"]>(initialState.groupId);
   const [groupName, setGroupName] = useState<Datum["groupName"]>(initialState.groupName);
   const [groupColor, setGroupColor] = useState<Datum["groupColor"]>(initialState.groupColor);
@@ -68,12 +70,13 @@ const TodoPage = () => {
     // construct new todo
     const newTodo: Datum = {
       id,
+      sectionId,
       tags,
       title,
       description,
       due_date: dueDate,
       priority,
-      boardOrder,
+      columnPos,
       groupId,
       groupName,
       groupColor,
@@ -97,7 +100,6 @@ const TodoPage = () => {
   };
 
   // TODO: [12/2/2021] need to add more inputs
-  // TODO: [12/3/2021] might need to change inputs to use useRefs because it is rerendering each time i type
   return (
     <TodoPageContainer>
       {/* TODO: [9/30/2021] Make Input Component in the future */}

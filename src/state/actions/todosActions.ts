@@ -18,5 +18,5 @@ interface ClearTodosAction {
   type: TodosActionTypes.CLEAR_TODOS;
 }
 
-// the actualy exported action type
+// combine different combination of actions and export it
 export type TodosActions = AddTodoAction | PopulateTodosAction | ClearTodosAction;
