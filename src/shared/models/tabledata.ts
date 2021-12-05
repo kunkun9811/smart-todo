@@ -7,16 +7,16 @@ export enum Priority {
 
 // TODO: [9/24/2021] might need to update this
 export interface Datum {
-  id: number;
+  id: number; //
   tags: string[];
-  title: string;
-  description: string;
-  due_date: string;
+  title: string; //
+  description: string; //
+  due_date: string; //
   priority: Priority; // 0-low, 1-medium, 2-high
   boardOrder: number;
-  groupId: number;
-  groupName: string;
-  groupColor: string;
+  groupId: number; //
+  groupName: string; //
+  groupColor: string; //
 }
 
 export interface DataArray {
