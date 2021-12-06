@@ -6,6 +6,7 @@ export enum Priority {
 
 export interface Datum {
   id: number; // id of current datum
+  userId: number; // id of the user this data belongs to
   sectionId: number; // id of the section this datum belongs to
   tags: number[]; // tag numbers of range [1,7], specifies which tags current datum has
   title: string; // title of the current datum

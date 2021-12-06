@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Section } from "../models";
+import { Datum, Section, User } from "../models";
 import { BACKEND_DATABASE_URL } from "../constants/API";
 
 // redux imports
@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux";
 import { TodosActionCreators } from "../../state";
 
 // TODO: this needs to take in "sectionId" parameter
-const usePopulateTodos = (section: Section): void => {
+const usePopulateTodos = (user: User, section: Section): void => {
   /* redux variables */
   // redux dispatch function
   const dispatch = useDispatch();
@@ -21,11 +21,15 @@ const usePopulateTodos = (section: Section): void => {
   useEffect(() => {
     ClearTodos();
     const url = BACKEND_DATABASE_URL + "todos"; // TODO: [12/5/2021] might need to change this when migrating to mongodb
+
     fetch(url, {
       method: "GET",
     })
       .then((response) => response.json())
       .then((data) => {
+        // TODO: This is currently coded for "json-server" specifically.
+        // When using mongodb or SQL, need to do this filtering on the database side (aka in the backend)
+        data = data.filter((d: Datum) => d.userId === user.id && d.sectionId === section.id);
         PopulateTodos(data);
       })
       .catch((err: string) => {

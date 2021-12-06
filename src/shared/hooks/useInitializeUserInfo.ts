@@ -15,7 +15,7 @@ const useInitializeUserInfo = () => {
     // database when user login. And then we will use the userId to get userInfo.
     // OR maybe when user login, we get userInfo directly
     const userId = "1";
-    const url = BACKEND_DATABASE_URL + "user" + userId;
+    const url: string = BACKEND_DATABASE_URL + "users/" + userId;
     fetch(url, {
       method: "GET",
     })

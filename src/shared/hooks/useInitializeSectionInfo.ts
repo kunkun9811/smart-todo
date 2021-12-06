@@ -12,8 +12,8 @@ const useInitializeSectionInfo = (user: User): void => {
   const { UpdateSection } = bindActionCreators(SectionActionCreators, dispatch);
 
   useEffect(() => {
-    const url = BACKEND_DATABASE_URL + "sections"; // TODO: [12/5/2021] might need to change this when migrating to mongodb
-    fetch(BACKEND_DATABASE_URL, {
+    const url = BACKEND_DATABASE_URL + "sections/" + user.currentSectionId; // TODO: [12/5/2021] might need to change this when migrating to mongodb
+    fetch(url, {
       method: "GET",
     })
       .then((response) => response.json())

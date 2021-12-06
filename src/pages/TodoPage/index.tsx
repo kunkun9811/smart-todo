@@ -40,7 +40,7 @@ const TodoPage = () => {
 
   // states for user inputs
   const [id, setId] = useState<Datum["id"]>(initialState.id);
-  const [sectionId, setSectionId] = useState<Datum["sectionId"]>(initialState.sectionId); // TODO: might not need this actually? we could just get this from "section" redux state later
+  // const [sectionId, setSectionId] = useState<Datum["sectionId"]>(initialState.sectionId); // TODO: might not need this actually? we could just get this from "section" redux state later
   const [tags, setTags] = useState<Datum["tags"]>(initialState.tags);
   const [title, setTitle] = useState<Datum["title"]>(initialState.title);
   const [description, setDescription] = useState<Datum["description"]>(initialState.description);
@@ -57,7 +57,7 @@ const TodoPage = () => {
   // get current section data
   useInitializeSectionInfo(user);
   // populate todos from database
-  usePopulateTodos(section);
+  usePopulateTodos(user, section);
 
   /* methods */
   // add new todo from user inputs
@@ -80,7 +80,8 @@ const TodoPage = () => {
     // construct new todo
     const newTodo: Datum = {
       id,
-      sectionId,
+      userId: user.id,
+      sectionId: section.id,
       tags,
       title,
       description,
@@ -162,6 +163,17 @@ const TodoPage = () => {
         }}
       />
       <button onClick={() => addTodo()}>Add</button>
+
+      <h1>-----USER-----</h1>
+      <p>{`user id = ${user.id}`}</p>
+      <p>{`user username = ${user.username}`}</p>
+      <p>{`user currentSectionId = ${user.currentSectionId}`}</p>
+
+      <h1>-----SECTION-----</h1>
+      <p>{`section id = ${section.id}`}</p>
+      <p>{`section name = ${section.sectionName}`}</p>
+      <p>{`section sortBy = ${section.sortBy}`}</p>
+      <p>{`section sortDirection = ${section.sortDirection}`}</p>
 
       {/* board view/kanban board */}
       <BoardView data={todos} />
