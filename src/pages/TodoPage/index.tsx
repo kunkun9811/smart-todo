@@ -1,6 +1,8 @@
+/** TODO: about to check if everything works accordingly. Namely all the new custom hooks and redux logic */
+
 import { useEffect, useState } from "react";
 import { TodoPageContainer } from "./Styles";
-import { DataArray, Datum, Priority } from "../../shared/models";
+import { User, Section, DataArray, Datum, Priority } from "../../shared/models";
 import BoardView from "./BoardView";
 
 // redux imports
@@ -8,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import { TodosActionCreators, State } from "../../state";
 import usePopulateTodos from "../../shared/hooks/usePopulateTodos";
+import useInitializeUserInfo from "../../shared/hooks/useInitializeUserInfo";
+import useInitializeSectionInfo from "../../shared/hooks/useInitializeSectionInfo";
 
 const initialState = {
   id: -1,
@@ -27,9 +31,11 @@ const TodoPage = () => {
   /* redux variables */
   // redux dispatch
   const dispatch = useDispatch();
-  // get action creators
+  // get redux action creators
   const { AddTodo } = bindActionCreators(TodosActionCreators, dispatch);
-  // state in the store TODO: need to maybe delete the [todos] variable at line 37
+  // get redux state
+  const user: User = useSelector((state: State) => state.user);
+  const section: Section = useSelector((state: State) => state.section);
   const todos: DataArray["data"] = useSelector((state: State) => state.todos);
 
   // states for user inputs
@@ -46,8 +52,12 @@ const TodoPage = () => {
   const [groupColor, setGroupColor] = useState<Datum["groupColor"]>(initialState.groupColor);
 
   /* effects */
+  // get user data
+  useInitializeUserInfo();
+  // get current section data
+  useInitializeSectionInfo(user);
   // populate todos from database
-  usePopulateTodos();
+  usePopulateTodos(section);
 
   /* methods */
   // add new todo from user inputs

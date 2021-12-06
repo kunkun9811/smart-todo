@@ -1,8 +1,8 @@
 /* NOTE: this file contains ALL the TODOS REDUCER logic, which actually updates the store */
 
+import { DataArray } from "../../shared/models";
 import { TodosActionTypes } from "../action-types";
 import { TodosActions } from "../actions";
-import { DataArray } from "../../shared/models";
 
 // NOTE: state's type is an array of TableData type => look at [models/tabledata.ts]
 const initialState: DataArray["data"] = [];

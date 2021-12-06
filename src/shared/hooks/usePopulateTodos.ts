@@ -1,6 +1,5 @@
-/* NOTE: DEPRECATED */
-
 import { useEffect } from "react";
+import { Section } from "../models";
 import { BACKEND_DATABASE_URL } from "../constants/API";
 
 // redux imports
@@ -9,7 +8,7 @@ import { bindActionCreators } from "redux";
 import { TodosActionCreators } from "../../state";
 
 // TODO: this needs to take in "sectionId" parameter
-const usePopulateTodos = () => {
+const usePopulateTodos = (section: Section): void => {
   /* redux variables */
   // redux dispatch function
   const dispatch = useDispatch();
@@ -21,7 +20,8 @@ const usePopulateTodos = () => {
   // todos from API multiple times
   useEffect(() => {
     ClearTodos();
-    fetch(BACKEND_DATABASE_URL, {
+    const url = BACKEND_DATABASE_URL + "todos"; // TODO: [12/5/2021] might need to change this when migrating to mongodb
+    fetch(url, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -29,9 +29,9 @@ const usePopulateTodos = () => {
         PopulateTodos(data);
       })
       .catch((err: string) => {
-        console.warn(`[Unable to Populate Todos] => ${err}`);
+        console.warn(`[Unable to Populate Todos] => error message: ${err}`);
       });
-  }, []);
+  }, [section]);
 };
 
 export default usePopulateTodos;

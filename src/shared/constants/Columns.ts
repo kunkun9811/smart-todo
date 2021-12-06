@@ -1,3 +1,12 @@
+/**
+ *
+ *
+ *  CURRENT DEPRECATED: Not using table view
+ *
+ *
+ *
+ */
+
 /* COLUMNS type for react-table */
 
 // TODO: Need to update this in the future

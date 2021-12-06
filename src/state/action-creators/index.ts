@@ -2,3 +2,4 @@
 // export * from "./todosActionCreators"; // Todos slice Action Creators
 export * as TodosActionCreators from "./todosActionCreators"; // Todos slice Action Creators
 export * as SectionActionCreators from "./sectionActionCreators"; // section slice Action Creators
+export * as UserActionCreators from "./userActionCreators"; // user slice Action Creators
