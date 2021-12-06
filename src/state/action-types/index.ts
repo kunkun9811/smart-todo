@@ -1,3 +1,3 @@
 export { TodosActionTypes } from "./todosActionTypes";
-export { SectionActionTypes } from "./sectionActionTypes";
+export { SectionsActionTypes } from "./sectionsActionTypes";
 export { UserActionTypes } from "./userActionTypes";

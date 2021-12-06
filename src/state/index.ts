@@ -8,7 +8,7 @@ without the alias
  */
 // export * as actionCreators from "./action-creators";
 export { TodosActionCreators } from "./action-creators";
-export { SectionActionCreators } from "./action-creators";
+export { SectionsActionCreators } from "./action-creators";
 export { UserActionCreators } from "./action-creators";
 
 /* the store */

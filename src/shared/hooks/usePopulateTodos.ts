@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Datum, Section, User } from "../models";
+import { DataArray, Section, User } from "../models";
 import { BACKEND_DATABASE_URL } from "../constants/API";
 
 // redux imports
@@ -8,7 +8,7 @@ import { bindActionCreators } from "redux";
 import { TodosActionCreators } from "../../state";
 
 // TODO: this needs to take in "sectionId" parameter
-const usePopulateTodos = (user: User, section: Section): void => {
+const usePopulateTodos = (user: User, sections: Section[]): void => {
   /* redux variables */
   // redux dispatch function
   const dispatch = useDispatch();
@@ -19,23 +19,29 @@ const usePopulateTodos = (user: User, section: Section): void => {
   // NOTE: usePopulateTodos is only called ONCE on application start. We do not want load
   // todos from API multiple times
   useEffect(() => {
+    // check if user id && sections is valid
+    // TODO: [12/5/2021] might have a bug here in the future
+    if (user.id < 0 || user.currentSectionId > sections.length) return;
+
+    // make sure todos redux state is cleared
     ClearTodos();
-    const url = BACKEND_DATABASE_URL + "todos"; // TODO: [12/5/2021] might need to change this when migrating to mongodb
+
+    const currentSection = sections.filter((section: Section) => section.id === user.currentSectionId)[0];
+    const url = BACKEND_DATABASE_URL + `todos?userId=${user.id}&sectionId=${currentSection.id}`; // TODO: [12/5/2021] might need to change this when migrating to mongodb
 
     fetch(url, {
       method: "GET",
     })
       .then((response) => response.json())
-      .then((data) => {
+      .then((data: DataArray["data"]) => {
         // TODO: This is currently coded for "json-server" specifically.
         // When using mongodb or SQL, need to do this filtering on the database side (aka in the backend)
-        data = data.filter((d: Datum) => d.userId === user.id && d.sectionId === section.id);
         PopulateTodos(data);
       })
       .catch((err: string) => {
         console.warn(`[Unable to Populate Todos] => error message: ${err}`);
       });
-  }, [section]);
+  }, [user, sections]);
 };
 
 export default usePopulateTodos;

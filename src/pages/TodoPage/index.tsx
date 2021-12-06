@@ -11,7 +11,7 @@ import { bindActionCreators } from "redux";
 import { TodosActionCreators, State } from "../../state";
 import usePopulateTodos from "../../shared/hooks/usePopulateTodos";
 import useInitializeUserInfo from "../../shared/hooks/useInitializeUserInfo";
-import useInitializeSectionInfo from "../../shared/hooks/useInitializeSectionInfo";
+import useInitializeSections from "../../shared/hooks/useInitializeSections";
 
 const initialState = {
   id: -1,
@@ -35,12 +35,12 @@ const TodoPage = () => {
   const { AddTodo } = bindActionCreators(TodosActionCreators, dispatch);
   // get redux state
   const user: User = useSelector((state: State) => state.user);
-  const section: Section = useSelector((state: State) => state.section);
+  const sections: Section[] = useSelector((state: State) => state.section);
   const todos: DataArray["data"] = useSelector((state: State) => state.todos);
 
   // states for user inputs
   const [id, setId] = useState<Datum["id"]>(initialState.id);
-  // const [sectionId, setSectionId] = useState<Datum["sectionId"]>(initialState.sectionId); // TODO: might not need this actually? we could just get this from "section" redux state later
+  const [sectionId, setSectionId] = useState<Datum["sectionId"]>(initialState.sectionId); // TODO: this will be the NEW section's id, need to change this later when using mongoDB
   const [tags, setTags] = useState<Datum["tags"]>(initialState.tags);
   const [title, setTitle] = useState<Datum["title"]>(initialState.title);
   const [description, setDescription] = useState<Datum["description"]>(initialState.description);
@@ -55,9 +55,9 @@ const TodoPage = () => {
   // get user data
   useInitializeUserInfo();
   // get current section data
-  useInitializeSectionInfo(user);
+  useInitializeSections(user);
   // populate todos from database
-  usePopulateTodos(user, section);
+  usePopulateTodos(user, sections);
 
   /* methods */
   // add new todo from user inputs
@@ -81,7 +81,7 @@ const TodoPage = () => {
     const newTodo: Datum = {
       id,
       userId: user.id,
-      sectionId: section.id,
+      sectionId,
       tags,
       title,
       description,
@@ -164,17 +164,18 @@ const TodoPage = () => {
       />
       <button onClick={() => addTodo()}>Add</button>
 
-      <h1>-----USER-----</h1>
+      {/* <h1>-----USER-----</h1>
       <p>{`user id = ${user.id}`}</p>
       <p>{`user username = ${user.username}`}</p>
       <p>{`user currentSectionId = ${user.currentSectionId}`}</p>
 
       <h1>-----SECTION-----</h1>
-      <p>{`section id = ${section.id}`}</p>
-      <p>{`section name = ${section.sectionName}`}</p>
-      <p>{`section sortBy = ${section.sortBy}`}</p>
-      <p>{`section sortDirection = ${section.sortDirection}`}</p>
+      <p>{`section id = ${sections[user.currentSectionId].id}`}</p>
+      <p>{`section name = ${sections[user.currentSectionId].sectionName}`}</p>
+      <p>{`section sortBy = ${sections[user.currentSectionId].sortBy}`}</p>
+      <p>{`section sortDirection = ${sections[user.currentSectionId].sortDirection}`}</p> */}
 
+      {/* TODO: [12/5/2021] in the future, I'd need to use sections[user.currentSectionId]["sectionStyle"] to determine whether it is a VIEW or a PAGE */}
       {/* board view/kanban board */}
       <BoardView data={todos} />
     </TodoPageContainer>

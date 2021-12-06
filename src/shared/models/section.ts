@@ -35,6 +35,7 @@ export interface TagColor {
 // -> View
 export interface Section {
   id: number;
+  userId: number; // indicates which user OWNS this section
   sectionName: string;
   sortBy: number;
   sortDirection: number; // TODO: this might be able to just be boolean, cuz it's only ascending + descending
