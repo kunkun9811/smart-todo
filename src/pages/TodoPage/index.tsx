@@ -164,16 +164,24 @@ const TodoPage = () => {
       />
       <button onClick={() => addTodo()}>Add</button>
 
+      {/* DEBUG: */}
       {/* <h1>-----USER-----</h1>
       <p>{`user id = ${user.id}`}</p>
       <p>{`user username = ${user.username}`}</p>
       <p>{`user currentSectionId = ${user.currentSectionId}`}</p>
 
-      <h1>-----SECTION-----</h1>
-      <p>{`section id = ${sections[user.currentSectionId].id}`}</p>
-      <p>{`section name = ${sections[user.currentSectionId].sectionName}`}</p>
-      <p>{`section sortBy = ${sections[user.currentSectionId].sortBy}`}</p>
-      <p>{`section sortDirection = ${sections[user.currentSectionId].sortDirection}`}</p> */}
+      {user.id >= 0 && sections.filter((section) => section.id === user.currentSectionId).length > 0 ? (
+        <>
+          <h1>-----SECTION-----</h1>
+          <p>{`section id = ${sections.filter((section) => section.id === user.currentSectionId)[0].id}`}</p>
+          <p>{`section name = ${sections.filter((section) => section.id === user.currentSectionId)[0].sectionName}`}</p>
+          <p>{`section sortBy = ${sections.filter((section) => section.id === user.currentSectionId)[0].sortBy}`}</p>
+          <p>{`section sortDirection = ${sections.filter((section) => section.id === user.currentSectionId)[0].sortDirection}`}</p>
+        </>
+      ) : (
+        <p>loading</p>
+      )} */}
+      {/* END DEBUG: */}
 
       {/* TODO: [12/5/2021] in the future, I'd need to use sections[user.currentSectionId]["sectionStyle"] to determine whether it is a VIEW or a PAGE */}
       {/* board view/kanban board */}

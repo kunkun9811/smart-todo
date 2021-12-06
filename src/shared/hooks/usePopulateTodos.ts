@@ -19,14 +19,24 @@ const usePopulateTodos = (user: User, sections: Section[]): void => {
   // NOTE: usePopulateTodos is only called ONCE on application start. We do not want load
   // todos from API multiple times
   useEffect(() => {
+    // NOTE: TODO: KEY: This logic might be moved to the backend when doing with actual backend API logic and database
+    const matchingSection: Section[] = sections.filter((section: Section) => section.id === user.currentSectionId);
+
+    // TODO: [12/5/2021] might have a bug here in the future, yeah the bug is that the length is not going to increase as currentSectionId.
+    // for example, a user owns one section w/ id = 100. But that is the only section the user owns. So the length is 1.
     // check if user id && sections is valid
-    // TODO: [12/5/2021] might have a bug here in the future
-    if (user.id < 0 || user.currentSectionId > sections.length) return;
+    if (user.id < 0 || matchingSection.length < 1) return;
+
+    // extract the matching section
+    const currentSection: Section = matchingSection[0];
 
     // make sure todos redux state is cleared
     ClearTodos();
 
-    const currentSection = sections.filter((section: Section) => section.id === user.currentSectionId)[0];
+    console.log("===================sections vs currentSection===================");
+    console.log(sections);
+    console.log(currentSection);
+
     const url = BACKEND_DATABASE_URL + `todos?userId=${user.id}&sectionId=${currentSection.id}`; // TODO: [12/5/2021] might need to change this when migrating to mongodb
 
     fetch(url, {
