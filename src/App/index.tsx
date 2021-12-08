@@ -1,4 +1,4 @@
-import TodoPage from "../pages/TodoPage";
+import TodoPage from "../pages/MainPage";
 import { AppContainer } from "./Styles";
 
 function App() {

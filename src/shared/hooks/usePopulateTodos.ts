@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { DataArray, Section, User } from "../models";
+import { TodoArray, Section, User } from "../models";
 import { BACKEND_DATABASE_URL } from "../constants/API";
 
 // redux imports
@@ -43,7 +43,7 @@ const usePopulateTodos = (user: User, sections: Section[]): void => {
       method: "GET",
     })
       .then((response) => response.json())
-      .then((data: DataArray["data"]) => {
+      .then((data: TodoArray["data"]) => {
         // TODO: This is currently coded for "json-server" specifically.
         // When using mongodb or SQL, need to do this filtering on the database side (aka in the backend)
         PopulateTodos(data);

@@ -5,7 +5,7 @@ import userReducer from "./userReducer";
 
 const reducers = combineReducers({
   todos: todosReducer,
-  section: sectionsReducer,
+  sections: sectionsReducer,
   user: userReducer,
 });
 

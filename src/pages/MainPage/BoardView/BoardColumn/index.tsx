@@ -14,7 +14,7 @@ import {
   useStyles,
 } from "./Styles";
 import BoardCard from "./BoardCard";
-import { DataArray, Datum } from "../../../../shared/models";
+import { TodoArray, Todo } from "../../../../shared/models";
 
 /* parameters */
 // --- group ---
@@ -24,8 +24,8 @@ import { DataArray, Datum } from "../../../../shared/models";
 
 /* local interfaces/models */
 interface BoardColumnStates {
-  groupName: Datum["groupName"];
-  groupColor: Datum["groupColor"];
+  groupName: Todo["groupName"];
+  groupColor: Todo["groupColor"];
 }
 
 /* local initial states */
@@ -34,9 +34,9 @@ const initialState: BoardColumnStates = {
   groupColor: "",
 };
 
-// NOTE: this is saying "this functino takes in parameter 'DataArray'" and at the actualy
-// parameter we destructure out the interface DataArray. KEY: Hint: look at the interface for DataArray
-const BoardColumn: React.FC<DataArray> = ({ data }) => {
+// NOTE: this is saying "this functino takes in parameter 'TodoArray'" and at the actualy
+// parameter we destructure out the interface TodoArray. KEY: Hint: look at the interface for TodoArray
+const BoardColumn: React.FC<TodoArray> = ({ data }) => {
   const classes = useStyles();
 
   const [groupName, setGroupName] = useState<BoardColumnStates["groupName"]>(initialState.groupName);
@@ -73,7 +73,7 @@ const BoardColumn: React.FC<DataArray> = ({ data }) => {
       <BoardCard />
       <BoardCard /> */}
       {/* TODO: need to change BoardCard */}
-      {data.map((itemInfo: Datum) => (
+      {data.map((itemInfo: Todo) => (
         <BoardCard {...itemInfo} key={itemInfo["id"]} />
       ))}
     </BoardColumnContainer>

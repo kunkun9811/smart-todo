@@ -1,6 +1,6 @@
 import styled from "styled-components/macro";
 
-export const TodoPageContainer = styled.div`
+export const MainPageContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

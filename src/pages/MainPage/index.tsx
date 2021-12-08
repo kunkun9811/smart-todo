@@ -1,8 +1,8 @@
 /** TODO: about to check if everything works accordingly. Namely all the new custom hooks and redux logic */
 
-import { useEffect, useState } from "react";
-import { TodoPageContainer } from "./Styles";
-import { User, Section, DataArray, Datum, Priority } from "../../shared/models";
+import { useState } from "react";
+import { MainPageContainer } from "./Styles";
+import { User, Section, TodoArray, Todo, Priority } from "../../shared/models";
 import BoardView from "./BoardView";
 
 // redux imports
@@ -27,7 +27,7 @@ const initialState = {
   groupColor: "",
 };
 
-const TodoPage = () => {
+const MainPage = () => {
   /* redux variables */
   // redux dispatch
   const dispatch = useDispatch();
@@ -35,21 +35,21 @@ const TodoPage = () => {
   const { AddTodo } = bindActionCreators(TodosActionCreators, dispatch);
   // get redux state
   const user: User = useSelector((state: State) => state.user);
-  const sections: Section[] = useSelector((state: State) => state.section);
-  const todos: DataArray["data"] = useSelector((state: State) => state.todos);
+  const sections: Section[] = useSelector((state: State) => state.sections);
+  const todos: TodoArray["data"] = useSelector((state: State) => state.todos);
 
   // states for user inputs
-  const [id, setId] = useState<Datum["id"]>(initialState.id);
-  const [sectionId, setSectionId] = useState<Datum["sectionId"]>(initialState.sectionId); // TODO: this will be the NEW section's id, need to change this later when using mongoDB
-  const [tags, setTags] = useState<Datum["tags"]>(initialState.tags);
-  const [title, setTitle] = useState<Datum["title"]>(initialState.title);
-  const [description, setDescription] = useState<Datum["description"]>(initialState.description);
-  const [dueDate, setDueDate] = useState<Datum["due_date"]>(initialState.dueDate);
-  const [priority, setPriority] = useState<Datum["priority"]>(initialState.priority);
-  const [columnPos, setColumnPos] = useState<Datum["columnPos"]>(initialState.columnPos);
-  const [groupId, setGroupId] = useState<Datum["groupId"]>(initialState.groupId);
-  const [groupName, setGroupName] = useState<Datum["groupName"]>(initialState.groupName);
-  const [groupColor, setGroupColor] = useState<Datum["groupColor"]>(initialState.groupColor);
+  const [id, setId] = useState<Todo["id"]>(initialState.id);
+  const [sectionId, setSectionId] = useState<Todo["sectionId"]>(initialState.sectionId); // TODO: this will be the NEW section's id, need to change this later when using mongoDB
+  const [tags, setTags] = useState<Todo["tags"]>(initialState.tags);
+  const [title, setTitle] = useState<Todo["title"]>(initialState.title);
+  const [description, setDescription] = useState<Todo["description"]>(initialState.description);
+  const [dueDate, setDueDate] = useState<Todo["due_date"]>(initialState.dueDate);
+  const [priority, setPriority] = useState<Todo["priority"]>(initialState.priority);
+  const [columnPos, setColumnPos] = useState<Todo["columnPos"]>(initialState.columnPos);
+  const [groupId, setGroupId] = useState<Todo["groupId"]>(initialState.groupId);
+  const [groupName, setGroupName] = useState<Todo["groupName"]>(initialState.groupName);
+  const [groupColor, setGroupColor] = useState<Todo["groupColor"]>(initialState.groupColor);
 
   /* effects */
   // get user data
@@ -78,7 +78,7 @@ const TodoPage = () => {
     }
 
     // construct new todo
-    const newTodo: Datum = {
+    const newTodo: Todo = {
       id,
       userId: user.id,
       sectionId,
@@ -112,7 +112,7 @@ const TodoPage = () => {
 
   // TODO: [12/2/2021] need to add more inputs
   return (
-    <TodoPageContainer>
+    <MainPageContainer>
       {/* TODO: [9/30/2021] Make Input Component in the future */}
       <input
         id="id"
@@ -186,8 +186,8 @@ const TodoPage = () => {
       {/* TODO: [12/5/2021] in the future, I'd need to use sections[user.currentSectionId]["sectionStyle"] to determine whether it is a VIEW or a PAGE */}
       {/* board view/kanban board */}
       <BoardView data={todos} />
-    </TodoPageContainer>
+    </MainPageContainer>
   );
 };
 
-export default TodoPage;
+export default MainPage;

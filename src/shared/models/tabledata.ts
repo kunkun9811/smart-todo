@@ -4,7 +4,7 @@ export enum Priority {
   HIGH,
 }
 
-export interface Datum {
+export interface Todo {
   id: number; // id of current datum
   userId: number; // id of the user this data belongs to
   sectionId: number; // id of the section this datum belongs to
@@ -19,8 +19,8 @@ export interface Datum {
   groupColor: string; // groupColor (aka column's color)
 }
 
-export interface DataArray {
-  data: Datum[];
+export interface TodoArray {
+  data: Todo[];
 }
 
 export interface ColumnsStructure {

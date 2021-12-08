@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { DataArray, Datum } from "../../../shared/models";
+import { TodoArray, Todo } from "../../../shared/models";
 import { BoardViewMainContainer, BoardViewContentContainer } from "./Styles";
 import BoardColumn from "./BoardColumn";
 
 /* local models/interfaces */
 interface ProcessedTodos {
-  [index: number]: DataArray["data"];
+  [index: number]: TodoArray["data"];
 }
 
 interface BoardViewStates {
@@ -21,7 +21,7 @@ const initialState: BoardViewStates = {
 };
 
 // TODO: [10/1/2021] Going to implement my own Kandan's View by using classes
-const BoardView: React.FC<DataArray> = ({ data }) => {
+const BoardView: React.FC<TodoArray> = ({ data }) => {
   const [isReady, setIsReady] = useState<BoardViewStates["isReady"]>(initialState.isReady);
   const [groups, setGroups] = useState<BoardViewStates["groups"]>(initialState.groups);
   const [processedTodos, setProcessedTodos] = useState<BoardViewStates["processedTodos"]>(initialState.processedTodos);
@@ -38,9 +38,9 @@ const BoardView: React.FC<DataArray> = ({ data }) => {
   }, [data]);
 
   /* methods */
-  const getAllGroups = (data: DataArray["data"]): BoardViewStates["groups"] => {
+  const getAllGroups = (data: TodoArray["data"]): BoardViewStates["groups"] => {
     const allGroups: Set<number> = new Set<number>();
-    data.forEach((d: Datum) => {
+    data.forEach((d: Todo) => {
       allGroups.add(d["groupId"]);
     });
 
@@ -53,7 +53,7 @@ const BoardView: React.FC<DataArray> = ({ data }) => {
       <BoardViewContentContainer>
         {/* for each group, render the boardColumn with corresponding boardcards */}
         {groups.map((groupId: number) => {
-          const group: DataArray["data"] = data.filter((d: Datum) => d["groupId"] === groupId);
+          const group: TodoArray["data"] = data.filter((d: Todo) => d["groupId"] === groupId);
           return <BoardColumn data={group} key={groupId} />;
         })}
       </BoardViewContentContainer>

@@ -1,10 +1,10 @@
 /* NOTE: this file contains ALL the "Action Creators" for TodosReducer */
-import { DataArray, Datum } from "../../shared/models";
+import { TodoArray, Todo } from "../../shared/models";
 import { TodosActionTypes } from "../action-types";
 import { TodosActions } from "../actions";
 import { Dispatch } from "redux"; // KEY: get the "Dispatch type" from redux
 
-export const AddTodo = (todo: Datum) => {
+export const AddTodo = (todo: Todo) => {
   return (dispatch: Dispatch<TodosActions>) => {
     dispatch({
       type: TodosActionTypes.ADD_TODO,
@@ -13,10 +13,7 @@ export const AddTodo = (todo: Datum) => {
   };
 };
 
-export const PopulateTodos = (todos: DataArray["data"]) => {
-  // DEBUG:
-  console.log("In PopulateTodos");
-  console.log(todos);
+export const PopulateTodos = (todos: TodoArray["data"]) => {
   return (dispatch: Dispatch<TodosActions>) => {
     dispatch({
       type: TodosActionTypes.POPULATE_TODOS,
@@ -26,8 +23,6 @@ export const PopulateTodos = (todos: DataArray["data"]) => {
 };
 
 export const ClearTodos = () => {
-  // DEBUG:
-  console.log("In ClearTodos");
   return (dispatch: Dispatch<TodosActions>) => {
     dispatch({
       type: TodosActionTypes.CLEAR_TODOS,
