@@ -1,4 +1,4 @@
-import { Todo, Section, TagColorsKey } from "../../../../../shared/models";
+import { Todo, Section, TagColorsKey, TagColor } from "../../../../../shared/models";
 import { BoardCardContainer, BoardCardTagsContainer, Tag, BoardCardText } from "./Styles";
 
 /* redux imports */
@@ -21,7 +21,7 @@ const BoardCard: React.FC<Todo> = (cardInfo) => {
           // <p key={t}>
           //   {t} : {section.tagColors[t].color}
           // </p>
-          <Tag backgroundColor={section.tagColors[t].color}>{section.tagColors[t].color}</Tag>
+          <Tag backgroundColor={section.tagColors[t].color}>{section.tagColors[t].text}</Tag>
         ))}
       </BoardCardTagsContainer>
 

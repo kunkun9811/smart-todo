@@ -2,7 +2,7 @@ import styled from "styled-components/macro";
 
 /* local interfaces */
 interface ITagProps {
-  backgroundColor?: string;
+  backgroundColor: string;
 }
 
 export const BoardCardContainer = styled.div`
@@ -12,7 +12,7 @@ export const BoardCardContainer = styled.div`
   min-width: 150px;
   margin: 5px 0;
   background-color: white;
-  border: 1px solid black;
+  border: ${(props) => `1px solid ${props.theme.palette.colors.main.borderColor}`};
   border-radius: 7px;
 `;
 
@@ -31,7 +31,7 @@ export const Tag = styled.div<ITagProps>`
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-  background-color: ${({ backgroundColor }: ITagProps) => (backgroundColor ? backgroundColor : "grey")};
+  background-color: ${(props) => (props.backgroundColor ? props.backgroundColor : "grey")};
   color: white;
 `;
 

@@ -6,12 +6,14 @@ import { ThemeProvider } from "styled-components";
 import { Provider } from "react-redux";
 import { store } from "./state";
 import GlobalStyle from "./globalstyles";
+import { defaultTheme } from "./shared/styles/theme";
 
 ReactDOM.render(
   <React.StrictMode>
     {/* redux */}
     <Provider store={store}>
-      <ThemeProvider theme={GlobalStyle}>
+      <ThemeProvider theme={defaultTheme}>
+        <GlobalStyle />
         <App />
       </ThemeProvider>
     </Provider>
