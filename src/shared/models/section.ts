@@ -42,4 +42,10 @@ export interface Section {
   tagColors: {
     [tagNum in TagColorsKey]: TagColor;
   };
+  groupsInfo: {
+    [groupId: number]: {
+      groupName: string;
+      groupColor: string;
+    };
+  };
 }

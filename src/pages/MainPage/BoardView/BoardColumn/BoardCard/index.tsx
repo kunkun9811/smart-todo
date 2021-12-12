@@ -21,7 +21,9 @@ const BoardCard: React.FC<Todo> = (cardInfo) => {
           // <p key={t}>
           //   {t} : {section.tagColors[t].color}
           // </p>
-          <Tag backgroundColor={section.tagColors[t].color}>{section.tagColors[t].text}</Tag>
+          <Tag key={t} backgroundColor={section.tagColors[t].color}>
+            {section.tagColors[t].text}
+          </Tag>
         ))}
       </BoardCardTagsContainer>
 

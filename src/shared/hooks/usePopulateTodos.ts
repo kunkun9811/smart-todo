@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { TodoArray, Section, User } from "../models";
-import { BACKEND_DATABASE_URL } from "../constants/API";
+import { BACKEND_DATABASE_URL } from "../constants/api_constants";
 
 // redux imports
 import { useDispatch } from "react-redux";
