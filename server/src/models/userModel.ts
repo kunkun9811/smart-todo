@@ -6,9 +6,9 @@ export interface User {
   currentSectionId: mongoose.Types.ObjectId; // indicates which section user is on currently, used to display the correct section on render
 }
 
-const userSchema = new Schema<User>({
+const UserSchema = new Schema<User>({
   username: String,
   currentSectionId: mongoose.Types.ObjectId,
 });
 
-export default model("User", userSchema);
+export default model("User", UserSchema);

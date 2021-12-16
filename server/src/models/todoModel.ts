@@ -19,7 +19,7 @@ interface Todo {
   columnPos: number; // default sorting will be sort by this, this could later be modified by drag and drop functionalities
 }
 
-const todoSchema = new Schema<Todo>({
+const TodoSchema = new Schema<Todo>({
   // id: mongoose.Types.ObjectId,
   userId: mongoose.Types.ObjectId,
   groupId: mongoose.Types.ObjectId,
@@ -32,4 +32,4 @@ const todoSchema = new Schema<Todo>({
   columnPos: Number,
 });
 
-export default model("Todo", todoSchema);
+export default model("Todo", TodoSchema);

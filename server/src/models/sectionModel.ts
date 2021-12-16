@@ -1,54 +1,45 @@
 import mongoose, { Schema, model } from "mongoose";
 
-enum TagColorsKey {
-  TAG_1 = 1,
-  TAG_2,
-  TAG_3,
-  TAG_4,
-  TAG_5,
-  TAG_6,
-  TAG_7,
-}
-
+/* local interfaces */
 interface TagColor {
   color: string;
   text: string;
 }
 
-interface Section {
+interface GroupInfo {
+  groupName: string;
+  groupColor: string;
+}
+
+export interface Section {
   // id: number;
   userId: mongoose.Types.ObjectId; // indicates which user OWNS this section
   sectionName: string;
   sortBy: number;
   sortDirection: number; // TODO: this might be able to just be boolean, cuz it's only ascending + descending
-  tagColors: {
-    [tagNum in TagColorsKey]: TagColor;
-  };
-  groupsInfo: {
-    [groupId: string]: {
-      groupName: string;
-      groupColor: string;
-    };
-  };
+  tagColors: TagColor[];
+  groupsInfo: GroupInfo[];
 }
 
-const sectionSchema = new Schema<Section>({
+/* mirror of local interfaces in mongoose.Schema */
+const TagColorSchema = new mongoose.Schema<TagColor>({
+  color: String,
+  text: String,
+});
+
+const GroupInfoSchema = new mongoose.Schema<GroupInfo>({
+  groupName: String,
+  groupColor: String,
+});
+
+/* to be exported schema */
+const SectionSchema = new Schema<Section>({
   userId: mongoose.Types.ObjectId,
   sectionName: String,
   sortBy: Number,
   sortDirection: Number, // TODO: this might be able to just be boolean, cuz it's only ascending + descending
-  tagColors: {
-    Number: {
-      color: String,
-      text: String,
-    },
-  },
-  groupsInfo: {
-    string: {
-      groupName: String,
-      groupColor: String,
-    },
-  },
+  tagColors: [TagColorSchema],
+  groupsInfo: [GroupInfoSchema],
 });
 
-export default model("Section", sectionSchema);
+export default model("Section", SectionSchema);
