@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import sectionModel, { Section } from "../models/sectionModel";
+import userModel, { User } from "../models/userModel";
 import { ResponseMessage } from "../shared/interfaces/responseMessage.interface";
 import { createResMsg } from "../shared/helperFunctions";
 import mongoose from "mongoose";
@@ -67,6 +68,15 @@ export const getSectionsByUserId = async (req: Request, res: Response) => {
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     console.warn("---passed in user id is invalid---");
     const msg: ResponseMessage = createResMsg([], "user id is invalid");
+    return res.status(400).json(msg);
+  }
+
+  // check if there is an user with id = userId
+  const user: User | null = await userModel.findById(userId);
+  if (!user) {
+    const msgText = `Tried to retrive sections for user with id=${userId} but this user does not exist`;
+    console.warn(`---${msgText}---`);
+    const msg: ResponseMessage = createResMsg([], msgText);
     return res.status(400).json(msg);
   }
 
