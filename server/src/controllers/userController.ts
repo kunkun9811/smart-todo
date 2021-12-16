@@ -17,12 +17,12 @@ export const getAllUsers = async (req: Request, res: Response) => {
     console.log("---Users---");
     console.log(users);
     const msg: ResponseMessage = createResMsg(users, "");
-    res.status(200).json(msg);
+    return res.status(200).json(msg);
   } catch (e) {
     console.warn("---Unable to retrieve ALL USERS----");
     console.warn(e);
     const msg: ResponseMessage = createResMsg([], "Could not get all users. Something went wrong on the server side.");
-    res.status(500).json(msg);
+    return res.status(500).json(msg);
   }
 };
 
@@ -37,25 +37,26 @@ export const getUserById = async (req: Request, res: Response) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     console.warn(`---User id is invalid---`);
     const msg: ResponseMessage = createResMsg([], `User id is invalid`);
-    res.status(400).json(msg);
+    return res.status(400).json(msg);
   }
+
   try {
     const user: User | null = await userModel.findById(id);
     if (!user) {
       console.warn(`---User with id=${id} does not exist---`);
       const msg: ResponseMessage = createResMsg([], `User with id=${id} does not exist`);
-      res.status(404).json(msg);
+      return res.status(404).json(msg);
     } else {
       console.log(`---User with id=${id}---`);
       console.log(user);
       const msg: ResponseMessage = createResMsg(user, "");
-      res.status(200).json(msg);
+      return res.status(200).json(msg);
     }
   } catch (e) {
     console.warn(`---Could not retrieve info for User id = ${id}---`);
     console.warn(e);
     const msg: ResponseMessage = createResMsg([], `Could not retrieve info for User id = ${id}. Something went wrong on the server side.`);
-    res.status(500).json(msg);
+    return res.status(500).json(msg);
   }
 };
 

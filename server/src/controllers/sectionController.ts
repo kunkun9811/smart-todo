@@ -11,11 +11,11 @@ export const getAllSections = async (req: Request, res: Response) => {
     console.log("---All Sections---");
     console.log(sections);
     const msg: ResponseMessage = createResMsg(sections, "");
-    res.status(200).json(msg);
+    return res.status(200).json(msg);
   } catch (e) {
     console.warn("Unable to get All Sections. Something went wrong on the server side.");
     const msg: ResponseMessage = createResMsg([], "Unable to get All Sections. Something went wrong on the server side.");
-    res.status(500).json(msg);
+    return res.status(500).json(msg);
   }
 };
 
@@ -30,7 +30,7 @@ export const getSectionById = async (req: Request, res: Response) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     console.warn("---section id is invalid---");
     const msg: ResponseMessage = createResMsg([], "seciton id is invalid");
-    res.status(400).json(msg);
+    return res.status(400).json(msg);
   }
 
   try {
@@ -40,19 +40,19 @@ export const getSectionById = async (req: Request, res: Response) => {
       const msgText = `section with id=${id} does not exist`;
       console.warn(`---${msgText}---`);
       const msg: ResponseMessage = createResMsg([], msgText);
-      res.status(404).json(msg);
+      return res.status(404).json(msg);
     } else {
       console.log(`---Section with id=${id}---`);
       console.log(section);
       const msg: ResponseMessage = createResMsg(section, "");
-      res.status(200).json(msg);
+      return res.status(200).json(msg);
     }
   } catch (e) {
     const errMsg = `Unable to get Section with id=${id}. Something went wrong on the server side.`;
     console.warn(`---${errMsg}---`);
     console.warn(e);
     const msg: ResponseMessage = createResMsg([], errMsg);
-    res.status(500).json(msg);
+    return res.status(500).json(msg);
   }
 };
 
@@ -67,7 +67,7 @@ export const getSectionsByUserId = async (req: Request, res: Response) => {
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     console.warn("---passed in user id is invalid---");
     const msg: ResponseMessage = createResMsg([], "user id is invalid");
-    res.status(400).json(msg);
+    return res.status(400).json(msg);
   }
 
   try {
@@ -79,12 +79,12 @@ export const getSectionsByUserId = async (req: Request, res: Response) => {
 
     // KEY: if there are no matching sections, we will just return empty array
     const msg: ResponseMessage = createResMsg(sections, "");
-    res.status(200).json(msg);
+    return res.status(200).json(msg);
   } catch (e) {
     const errMsg = `Unable to get Sections for user id=${userId}. Something went wrong on the server side.`;
     console.warn(`---${errMsg}---`);
     console.warn(e);
     const msg: ResponseMessage = createResMsg([], errMsg);
-    res.status(500).json(msg);
+    return res.status(500).json(msg);
   }
 };
