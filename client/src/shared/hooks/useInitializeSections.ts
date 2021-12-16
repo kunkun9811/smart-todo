@@ -12,10 +12,14 @@ const useInitializeSections = (user: User): void => {
   const { InitializeSections } = bindActionCreators(SectionsActionCreators, dispatch);
 
   useEffect(() => {
-    if (user.id < 0) return;
+    console.log("--------------------user");
+    console.log(user);
 
+    if (user._id.length === 0) return;
+
+    // TODO: extract this logic into "api"
     // TODO: [12/5/2021] need to change this when migrating to mongodb, currently it is querying according to json-server documentation
-    const url = BACKEND_DATABASE_URL + "sections?userId=" + user.id;
+    const url = BACKEND_DATABASE_URL + "sections?userId=" + user._id;
     fetch(url, {
       method: "GET",
     })

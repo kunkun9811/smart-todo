@@ -11,16 +11,21 @@ const useInitializeUserInfo = () => {
   const { InitializeUser } = bindActionCreators(UserActionCreators, dispatch);
 
   useEffect(() => {
+    // TODO: extract this logic into "api"
     // DEBUG: TODO: Currently, I am hardcoding the curUserId. This should be from
     // database when user login. And then we will use the userId to get userInfo.
     // OR maybe when user login, we get userInfo directly
     const userId = "1";
     const url: string = BACKEND_DATABASE_URL + "users/" + userId;
+
     fetch(url, {
       method: "GET",
     })
       .then((response) => response.json())
       .then((userData) => {
+        // DEBUG:
+        console.log("---userData---");
+        console.log(userData);
         InitializeUser(userData);
       })
       .catch((err: string) => {

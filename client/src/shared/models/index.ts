@@ -1,3 +1,3 @@
-export * from "./user";
-export * from "./section";
-export * from "./tabledata";
+export * from "./user.interface";
+export * from "./section.interface";
+export * from "./todo.interface";

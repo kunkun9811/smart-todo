@@ -1,12 +1,12 @@
-import { User } from "../../shared/models/user";
+import { User } from "../../shared/models/user.interface";
 import { UserActionTypes } from "../action-types";
 import { UserActions } from "../actions";
 
 /* local initial state */
 const initialState: User = {
-  id: -1,
+  _id: "",
   username: "",
-  currentSectionId: -1,
+  currentSectionId: "",
 };
 
 const userReducer = (state: User = initialState, action: UserActions): User => {

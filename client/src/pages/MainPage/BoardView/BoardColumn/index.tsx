@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {
@@ -14,50 +13,20 @@ import {
   useStyles,
 } from "./Styles";
 import BoardCard from "./BoardCard";
-import { TodoArray, Todo, Section } from "../../../../shared/models";
+import { TodoArray, Todo, Group } from "../../../../shared/models";
 
-/* redux imports */
-import { useSelector } from "react-redux";
-import { State } from "../../../../state";
-
-/* parameters */
-// --- group ---
-// group id
-// group name
-// group color
-
-/* local interfaces/models */
-interface BoardColumnStates {
-  groupName: Todo["groupName"];
-  groupColor: Todo["groupColor"];
+/* local params */
+interface BoardColumnParams {
+  data: TodoArray["data"];
+  group: Group;
 }
-
-/* local initial states */
-const initialState: BoardColumnStates = {
-  groupName: "",
-  groupColor: "",
-};
 
 // NOTE: this is saying "this functino takes in parameter 'TodoArray'" and at the actualy
 // parameter we destructure out the interface TodoArray. KEY: Hint: look at the interface for TodoArray
-const BoardColumn: React.FC<TodoArray> = ({ data }) => {
+// TODO: For this functional component, also pass in the corresponding group
+const BoardColumn: React.FC<BoardColumnParams> = ({ data, group }) => {
   // MUI styles
   const classes = useStyles();
-
-  // redux states
-  const section: Section = useSelector((state: State) => state.sections).filter((s: Section) => s.id === data[0].sectionId)[0];
-
-  const [groupName, setGroupName] = useState<BoardColumnStates["groupName"]>(initialState.groupName);
-  const [groupColor, setGroupColor] = useState<BoardColumnStates["groupColor"]>(initialState.groupColor);
-
-  /* effects */
-  useEffect(() => {
-    if (data !== undefined && section !== undefined) {
-      const groupId = data[0].groupId;
-      setGroupName(section.groupsInfo[groupId].groupName);
-      setGroupColor(section.groupsInfo[groupId].groupColor);
-    }
-  }, [section, data]);
 
   return (
     <BoardColumnContainer>
@@ -65,8 +34,8 @@ const BoardColumn: React.FC<TodoArray> = ({ data }) => {
       <BoardColumnInfoContainer>
         <BoardColumnInfoWrapper>
           <BoardColumnGroupNameContainer>
-            <BoardColumnGroupNameWrapper groupColor={groupColor}>
-              <BoardColumnGroupNameText>{groupName}</BoardColumnGroupNameText>
+            <BoardColumnGroupNameWrapper groupColor={group.groupColor}>
+              <BoardColumnGroupNameText>{group.groupName}</BoardColumnGroupNameText>
             </BoardColumnGroupNameWrapper>
           </BoardColumnGroupNameContainer>
           <BoardColumnMoreButtonWrapper>
@@ -79,7 +48,7 @@ const BoardColumn: React.FC<TodoArray> = ({ data }) => {
       </BoardColumnInfoContainer>
 
       {data.map((itemInfo: Todo) => (
-        <BoardCard {...itemInfo} key={itemInfo["id"]} />
+        <BoardCard {...itemInfo} key={itemInfo["_id"]} />
       ))}
     </BoardColumnContainer>
   );

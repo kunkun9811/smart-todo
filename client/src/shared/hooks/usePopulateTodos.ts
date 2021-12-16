@@ -19,25 +19,24 @@ const usePopulateTodos = (user: User, sections: Section[]): void => {
   // NOTE: usePopulateTodos is only called ONCE on application start. We do not want load
   // todos from API multiple times
   useEffect(() => {
-    // NOTE: TODO: KEY: This logic might be moved to the backend when doing with actual backend API logic and database
-    const matchingSection: Section[] = sections.filter((section: Section) => section.id === user.currentSectionId);
+    if (user._id.length === 0) return;
 
-    // TODO: [12/5/2021] might have a bug here in the future, yeah the bug is that the length is not going to increase as currentSectionId.
-    // for example, a user owns one section w/ id = 100. But that is the only section the user owns. So the length is 1.
-    // check if user id && sections is valid
-    if (user.id < 0 || matchingSection.length < 1) return;
+    // get the current section
+    const currentSection: Section | undefined = sections.find((s: Section) => s._id === user.currentSectionId);
 
-    // extract the matching section
-    const currentSection: Section = matchingSection[0];
+    // TODO: [12/16/2021] double check if I need additional handling process
+    // if current section does not exist in user's sections pool, log the message.
+    // Might need additional handling in the future, like render a page displaying the below message.
+    if (!currentSection) {
+      console.log(`Section with ID=${user.currentSectionId} does not exist`);
+    }
 
     // make sure todos redux state is cleared
     ClearTodos();
 
-    console.log("===================sections vs currentSection===================");
-    console.log(sections);
-    console.log(currentSection);
-
-    const url = BACKEND_DATABASE_URL + `todos?userId=${user.id}&sectionId=${currentSection.id}`; // TODO: [12/5/2021] might need to change this when migrating to mongodb
+    // TODO: extract this logic into "api"
+    // TODO: [12/5/2021] might need to change this when migrating to mongodb
+    const url = BACKEND_DATABASE_URL + `todos?userId=${user._id}&sectionId=${currentSection?._id}`;
 
     fetch(url, {
       method: "GET",

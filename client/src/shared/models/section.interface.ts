@@ -13,7 +13,7 @@ export enum TagColorsKey {
 
 // sort by types - currently supports 3
 export enum SortByTypes {
-  DEFAULT, // TODO: this will be by "columnPos"
+  DEFAULT, // NOTE: this will be by "columnPos"
   BY_NAME,
   BY_DUE_DATE,
 }
@@ -29,23 +29,22 @@ export interface TagColor {
   text: string;
 }
 
+export interface Group {
+  id: string;
+  groupName: string;
+  groupColor: string;
+}
+
 // Remember, it is
 // Section
 // -> Page
 // -> View
 export interface Section {
-  id: number;
-  userId: number; // indicates which user OWNS this section
+  _id: string;
+  userId: string; // indicates which user OWNS this section
   sectionName: string;
   sortBy: number;
   sortDirection: number; // TODO: this might be able to just be boolean, cuz it's only ascending + descending
-  tagColors: {
-    [tagNum in TagColorsKey]: TagColor;
-  };
-  groupsInfo: {
-    [groupId: number]: {
-      groupName: string;
-      groupColor: string;
-    };
-  };
+  tagColors: TagColor[];
+  groups: Group[];
 }

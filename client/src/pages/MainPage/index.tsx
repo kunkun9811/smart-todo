@@ -14,15 +14,15 @@ import useInitializeUserInfo from "../../shared/hooks/useInitializeUserInfo";
 import useInitializeSections from "../../shared/hooks/useInitializeSections";
 
 const initialState = {
-  id: -1,
-  sectionId: -1,
+  id: "",
+  sectionId: "",
   tags: [],
   title: "",
   description: "",
   dueDate: "",
   priority: Priority.HIGH,
   columnPos: -1,
-  groupId: 0, // 0 means no group/column
+  groupId: "", // empty string means no group/column
   groupName: "",
   groupColor: "",
 };
@@ -38,8 +38,8 @@ const MainPage = () => {
   const sections: Section[] = useSelector((state: State) => state.sections);
   const todos: TodoArray["data"] = useSelector((state: State) => state.todos);
 
-  // states for user inputs
-  const [id, setId] = useState<Todo["id"]>(initialState.id);
+  // states for user inputs - TODO: [12/12/2021] make this into an object instead of so many different useStates
+  const [id, setId] = useState<Todo["_id"]>(initialState.id);
   const [sectionId, setSectionId] = useState<Todo["sectionId"]>(initialState.sectionId); // TODO: this will be the NEW section's id, need to change this later when using mongoDB
   const [tags, setTags] = useState<Todo["tags"]>(initialState.tags);
   const [title, setTitle] = useState<Todo["title"]>(initialState.title);
@@ -48,8 +48,8 @@ const MainPage = () => {
   const [priority, setPriority] = useState<Todo["priority"]>(initialState.priority);
   const [columnPos, setColumnPos] = useState<Todo["columnPos"]>(initialState.columnPos);
   const [groupId, setGroupId] = useState<Todo["groupId"]>(initialState.groupId);
-  const [groupName, setGroupName] = useState<Todo["groupName"]>(initialState.groupName);
-  const [groupColor, setGroupColor] = useState<Todo["groupColor"]>(initialState.groupColor);
+  // const [groupName, setGroupName] = useState<string>(initialState.groupName);
+  // const [groupColor, setGroupColor] = useState<string>(initialState.groupColor);
 
   /* effects */
   // get user data
@@ -69,7 +69,7 @@ const MainPage = () => {
 
     // check if inputs are all valid
     let logString = "";
-    if (id === -1) logString += "Please Enter [id]\n";
+    if (id.length === 0) logString += "Please Enter [id]\n";
     if (description.length === 0) logString += "Please Enter [description]\n";
     if (dueDate.length === 0) logString += "Please Enter [due date]\n";
     if (logString.length > 0) {
@@ -79,8 +79,8 @@ const MainPage = () => {
 
     // construct new todo
     const newTodo: Todo = {
-      id,
-      userId: user.id,
+      _id: id,
+      userId: user._id,
       sectionId,
       tags,
       title,
@@ -89,16 +89,12 @@ const MainPage = () => {
       priority,
       columnPos,
       groupId,
-      groupName,
-      groupColor,
+      // groupName,
+      // groupColor,
     };
 
     // update redux todos list
     AddTodo(newTodo);
-
-    // DEBUG:
-    console.log("---Added New Todo!---");
-    console.log(newTodo);
 
     // reset states
     setId(initialState.id);
@@ -114,13 +110,14 @@ const MainPage = () => {
   return (
     <MainPageContainer>
       {/* TODO: [9/30/2021] Make Input Component in the future */}
+      {/* TODO: [12/16/2021] Todo should not be manually inputted, it should be user's id */}
       <input
         id="id"
         type="text"
         placeholder="id"
         value={id ? id : 0}
         onChange={(e) => {
-          setId(parseInt(e.target.value));
+          setId(e.target.value);
         }}
       />
       <input
@@ -163,25 +160,6 @@ const MainPage = () => {
         }}
       />
       <button onClick={() => addTodo()}>Add</button>
-
-      {/* DEBUG: */}
-      {/* <h1>-----USER-----</h1>
-      <p>{`user id = ${user.id}`}</p>
-      <p>{`user username = ${user.username}`}</p>
-      <p>{`user currentSectionId = ${user.currentSectionId}`}</p>
-
-      {user.id >= 0 && sections.filter((section) => section.id === user.currentSectionId).length > 0 ? (
-        <>
-          <h1>-----SECTION-----</h1>
-          <p>{`section id = ${sections.filter((section) => section.id === user.currentSectionId)[0].id}`}</p>
-          <p>{`section name = ${sections.filter((section) => section.id === user.currentSectionId)[0].sectionName}`}</p>
-          <p>{`section sortBy = ${sections.filter((section) => section.id === user.currentSectionId)[0].sortBy}`}</p>
-          <p>{`section sortDirection = ${sections.filter((section) => section.id === user.currentSectionId)[0].sortDirection}`}</p>
-        </>
-      ) : (
-        <p>loading</p>
-      )} */}
-      {/* END DEBUG: */}
 
       {/* TODO: [12/5/2021] in the future, I'd need to use sections[user.currentSectionId]["sectionStyle"] to determine whether it is a VIEW or a PAGE */}
       {/* board view/kanban board */}

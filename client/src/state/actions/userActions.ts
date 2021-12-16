@@ -1,4 +1,4 @@
-import { User } from "../../shared/models/user";
+import { User } from "../../shared/models/user.interface";
 import { UserActionTypes } from "../action-types";
 
 // action types

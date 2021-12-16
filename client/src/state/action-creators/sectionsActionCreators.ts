@@ -1,5 +1,5 @@
 /* NOTE: this file contains ALL the "Action Creators" for SectionReducer */
-import { Section } from "../../shared/models/section";
+import { Section } from "../../shared/models/section.interface";
 import { SectionsActionTypes } from "../action-types";
 import { SectionsActions } from "../actions";
 import { Dispatch } from "redux"; // KEY: get the "Dispatch type" from redux
