@@ -5,31 +5,31 @@ interface TagColor {
   color: string;
   text: string;
 }
-
-interface GroupInfo {
+interface Group {
+  id: mongoose.Types.ObjectId;
   groupName: string;
   groupColor: string;
 }
 
 export interface Section {
-  // id: number;
   userId: mongoose.Types.ObjectId; // indicates which user OWNS this section
   sectionName: string;
   sortBy: number;
   sortDirection: number; // TODO: this might be able to just be boolean, cuz it's only ascending + descending
   tagColors: TagColor[];
-  groupsInfo: GroupInfo[];
+  groupsInfo: Group[];
 }
 
-/* mirror of local interfaces in mongoose.Schema */
-const TagColorSchema = new mongoose.Schema<TagColor>({
-  color: String,
-  text: String,
-});
-
-const GroupInfoSchema = new mongoose.Schema<GroupInfo>({
+const GroupInfoSchema = new Schema<Group>({
+  id: mongoose.Types.ObjectId,
   groupName: String,
   groupColor: String,
+});
+
+/* mirror of local interfaces in mongoose.Schema */
+const TagColorSchema = new Schema<TagColor>({
+  color: String,
+  text: String,
 });
 
 /* to be exported schema */
