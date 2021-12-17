@@ -9,7 +9,7 @@ export interface Todo {
   userId: string; // id of the user this data belongs to
   groupId: string; // groupId (aka column's name)
   sectionId: string; // id of the section this datum belongs to
-  tags: number[]; // tag numbers of range [1,7], specifies which tags current datum has
+  tags: number[]; /// tag numbers, fixed range of [0,6]
   title: string; // title of the current datum
   description: string; // description of the current datum
   due_date: string; // due date of the current datum

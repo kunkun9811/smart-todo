@@ -5,6 +5,7 @@ import { BACKEND_DATABASE_URL } from "../constants/api_constants";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { UserActionCreators } from "../../state";
+import { User } from "../models";
 
 const useInitializeUserInfo = () => {
   const dispatch = useDispatch();
@@ -15,22 +16,8 @@ const useInitializeUserInfo = () => {
     // DEBUG: TODO: Currently, I am hardcoding the curUserId. This should be from
     // database when user login. And then we will use the userId to get userInfo.
     // OR maybe when user login, we get userInfo directly
-    const userId = "1";
-    const url: string = BACKEND_DATABASE_URL + "users/" + userId;
-
-    fetch(url, {
-      method: "GET",
-    })
-      .then((response) => response.json())
-      .then((userData) => {
-        // DEBUG:
-        console.log("---userData---");
-        console.log(userData);
-        InitializeUser(userData);
-      })
-      .catch((err: string) => {
-        console.warn(`[Unable to get user info] => error message: ${err}`);
-      });
+    const userId = "61b6e0682a490fa66f7c4b21";
+    InitializeUser(userId);
   }, []);
 };
 

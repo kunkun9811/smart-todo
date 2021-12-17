@@ -60,7 +60,12 @@ const BoardView: React.FC<TodoArray> = ({ data }) => {
   // };
 
   useEffect(() => {
+    console.log("______sections_____");
+    console.log(sections);
+
     const curSec: Section | undefined = sections.find((s: Section) => s._id === user.currentSectionId);
+    // TODO: [12/16/2021] maybe additional handling
+    if (!curSec) return;
     setCurrentSection(curSec);
   }, [user, sections]);
 

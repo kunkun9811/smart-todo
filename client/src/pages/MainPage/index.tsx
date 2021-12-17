@@ -57,7 +57,7 @@ const MainPage = () => {
   // get current section data
   useInitializeSections(user);
   // populate todos from database
-  usePopulateTodos(user, sections);
+  usePopulateTodos(user.currentSectionId);
 
   /* methods */
   // add new todo from user inputs
