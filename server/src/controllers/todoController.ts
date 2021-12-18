@@ -3,7 +3,7 @@ import todoModel, { Todo } from "../models/todoModel";
 import sectionModel, { Section } from "../models/sectionModel";
 import { ResponseMessage } from "../shared/interfaces/responseMessage.interface";
 import { createResMsg } from "../shared/helperFunctions";
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { resolveSoa } from "dns";
 
 // TODO: need to update this

@@ -60,18 +60,75 @@ export const getUserById = async (req: Request, res: Response) => {
   }
 };
 
-/* DEBUG: test */
-// export const addUserTest = async (req: Request, res: Response) => {
-//   const username: string = "thisIsTestAcc";
-//   const currentSectionId: mongoose.Types.ObjectId = new mongoose.Types.ObjectId();
+export const addUser = async (req: Request, res: Response) => {
+  // get request body
+  const { username, currentSectionId } = req.body;
 
-//   const newUser = new userModel({ username, currentSectionId });
+  // set headers
+  res.setHeader("Content-Type", "application/json");
 
-//   try {
-//     await newUser.save();
+  // check if username exist
+  // NOTE: we don't check "currentSectionId", because at first there are no "sections"
+  if (!username || username.length === 0) {
+    const msgText = "Unable to add a new user. Did not provide username";
+    console.warn(`---${msgText}---`);
+    const msg: ResponseMessage = createResMsg([], msgText);
+    return res.status(400).json(msg);
+  }
 
-//     res.status(201).json(newUser);
-//   } catch (e) {
-//     console.log(`Could not add user => ${e}`);
-//   }
-// };
+  // check if username already exists
+  const query = { username };
+  const queryResult: User[] = await userModel.find(query);
+  if (queryResult.length != 0) {
+    const msgText = `User with username=${username} already exists`;
+    console.warn(`--${msgText}--`);
+    const msg: ResponseMessage = createResMsg([], msgText);
+    return res.status(409).json(msg);
+  }
+
+  // add new user
+  try {
+    const user: User = new userModel({ username, currentSectionId });
+    await user.save();
+    console.log("---Added User---");
+    console.log(user);
+    const msg: ResponseMessage = createResMsg(user, "");
+    return res.status(201).json(msg);
+  } catch (e) {
+    const msgText = `Unable to add new user. Something went wrong on the server side`;
+    console.warn(`---${msgText}---`);
+    console.warn(e);
+    const msg: ResponseMessage = createResMsg([], msgText);
+    return res.status(500).json(msg);
+  }
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+  // get params
+  const { id } = req.params;
+
+  // set headers
+  res.setHeader("Content-Type", "application/json");
+
+  // check if _id is valid
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    const msgText = `The user id is not provided or the id is not valid`;
+    console.warn(`---${msgText}---`);
+    const msg: ResponseMessage = createResMsg([], msgText);
+    return res.status(400).json(msg);
+  }
+
+  try {
+    const deletedUser: User | null = await userModel.findByIdAndDelete(id);
+    console.log(`---Deleted User with id=${id}---`);
+    console.log(deletedUser);
+    const msg: ResponseMessage = createResMsg(deletedUser, "");
+    return res.status(200).json(msg);
+  } catch (e) {
+    const msgText = `Unable to delete user with id=${id}. Something went wrong on the server side`;
+    console.warn(`---${msgText}---`);
+    console.warn(e);
+    const msg: ResponseMessage = createResMsg([], msgText);
+    return res.status(500).json(msg);
+  }
+};
