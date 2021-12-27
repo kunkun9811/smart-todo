@@ -18,7 +18,7 @@ export interface Section extends Document {
   sortBy: number;
   sortDirection: number; // TODO: this might be able to just be boolean, cuz it's only ascending + descending
   tagColors: TagColor[];
-  groupsInfo: Group[];
+  groups: Group[];
 }
 
 /* mirror of local interfaces in mongoose.Schema */
@@ -41,7 +41,7 @@ const SectionSchema = new Schema<Section>(
     sortBy: { type: Number, required: true },
     sortDirection: { type: Number, required: true }, // TODO: this might be able to just be boolean, cuz it's only ascending + descending
     tagColors: { type: [TagColorSchema], required: true },
-    groupsInfo: { type: [GroupInfoSchema], required: true },
+    groups: { type: [GroupInfoSchema], required: true },
   },
   {
     versionKey: false, // NOTE: [12/17/2021] - versionKey or "__v" property is turned off
