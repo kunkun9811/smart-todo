@@ -5,6 +5,7 @@ import { createResMsg } from "../shared/helperFunctions";
 import mongoose from "mongoose";
 
 import userModel from "../models/userModel";
+import userRouter from "../routes/userRoutes";
 
 /* handlers */
 // TODO: [12/14/2021] In order to get all users, this requires admin permission in the future
@@ -76,18 +77,19 @@ export const addUser = async (req: Request, res: Response) => {
     return res.status(400).json(msg);
   }
 
-  // check if username already exists
-  const query = { username };
-  const queryResult: User[] = await userModel.find(query);
-  if (queryResult.length != 0) {
-    const msgText = `User with username=${username} already exists`;
-    console.warn(`--${msgText}--`);
-    const msg: ResponseMessage = createResMsg([], msgText);
-    return res.status(409).json(msg);
-  }
-
   // add new user
   try {
+    // check if username already exists
+    const query = { username };
+    const queryResult: User[] = await userModel.find(query);
+    if (queryResult.length != 0) {
+      const msgText = `User with username=${username} already exists`;
+      console.warn(`--${msgText}--`);
+      const msg: ResponseMessage = createResMsg([], msgText);
+      return res.status(409).json(msg);
+    }
+
+    // add new user
     const user: User = new userModel({ username, currentSectionId });
     await user.save();
     console.log("---Added User---");
@@ -126,6 +128,53 @@ export const deleteUser = async (req: Request, res: Response) => {
     return res.status(200).json(msg);
   } catch (e) {
     const msgText = `Unable to delete user with id=${id}. Something went wrong on the server side`;
+    console.warn(`---${msgText}---`);
+    console.warn(e);
+    const msg: ResponseMessage = createResMsg([], msgText);
+    return res.status(500).json(msg);
+  }
+};
+
+/* function parameters - all the modifiable user properties*/
+// NOTE:
+// client will pass in the desired properties to update. Not all properties need to be passed in.
+interface modfiableUserProperties {
+  _id: User["_id"];
+  username: User["username"];
+  currentSectionId: User["currentSectionId"];
+}
+
+export const updateUser = async (req: Request, res: Response) => {
+  // get body
+  // NOTE: if any of the properties above are not specified, then mongodb will not update those properties.
+  // Namely, mongoDB will not update any particular properties if the corresponding passed in values are "undefined" or "null"
+  // We could pass this directly into "findByIdAndUpdate" below
+  const newInfo: modfiableUserProperties = req.body;
+
+  // check if id is valid
+  if (!mongoose.Types.ObjectId.isValid(newInfo._id)) {
+    const msgText = `The user id is not provided or the id is not valid`;
+    console.warn(`---${msgText}---`);
+    const msg: ResponseMessage = createResMsg([], msgText);
+    return res.status(400).json(msg);
+  }
+
+  try {
+    // grab current user info
+    const user: User | null = await userModel.findById(newInfo._id);
+    if (!user) {
+      console.warn(`---User with id=${newInfo._id} does not exist---`);
+      const msg: ResponseMessage = createResMsg([], `User with id=${newInfo._id} does not exist`);
+      return res.status(404).json(msg);
+    }
+
+    const updatedUser = await userModel.findByIdAndUpdate(newInfo._id, newInfo, { new: true });
+    console.log(`---updated user with id=${newInfo._id}---`);
+    console.log(updatedUser);
+    const msg: ResponseMessage = createResMsg(updatedUser, "");
+    res.status(200).json(msg);
+  } catch (e) {
+    const msgText = `Unable to update user with id=${newInfo._id}. Something went wrong on the server side`;
     console.warn(`---${msgText}---`);
     console.warn(e);
     const msg: ResponseMessage = createResMsg([], msgText);
