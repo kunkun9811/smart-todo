@@ -109,58 +109,6 @@ const MainPage = () => {
   // TODO: [12/2/2021] need to add more inputs
   return (
     <MainPageContainer>
-      {/* TODO: [9/30/2021] Make Input Component in the future */}
-      {/* TODO: [12/16/2021] Todo should not be manually inputted, it should be user's id */}
-      <input
-        id="id"
-        type="text"
-        placeholder="id"
-        value={id ? id : 0}
-        onChange={(e) => {
-          setId(e.target.value);
-        }}
-      />
-      <input
-        id="description"
-        type="text"
-        placeholder="description"
-        onChange={(e) => {
-          setDescription(e.target.value);
-        }}
-      />
-      <input
-        id="due_date"
-        type="date"
-        placeholder="due date"
-        onChange={(e) => {
-          // NOTE: upon further research, JavaScript Date object acts strangely, so we need to process the input value first by changing '-' to '/' and
-          // removing strings after 'T' if there is one since we do not care about exact time for now
-          // refer to https://stackoverflow.com/questions/7556591/is-the-javascript-date-object-always-one-day-off?rq=1
-          const formattedDateString = e.target.value.replace(/-/g, "/").replace(/T.+/, "");
-          const date = new Date(formattedDateString);
-          var month: string = (date.getMonth() + 1).toString();
-          var day: string = date.getDate().toString();
-          var year: string = date.getFullYear().toString();
-
-          if (month.length < 2) month = "0" + month;
-          if (day.length < 2) day = "0" + day;
-
-          var newDate: string = [month, day, year].join("/");
-
-          setDueDate(newDate);
-        }}
-      />
-      {/* TODO: need to change this so that there are only 3 options, low, med, high */}
-      <input
-        id="priority"
-        type="text"
-        placeholder="priority"
-        onChange={(e) => {
-          setPriority(parseInt(e.target.value));
-        }}
-      />
-      <button onClick={() => addTodo()}>Add</button>
-
       {/* TODO: [12/5/2021] in the future, I'd need to use sections[user.currentSectionId]["sectionStyle"] to determine whether it is a VIEW or a PAGE */}
       {/* board view/kanban board */}
       <BoardView data={todos} />
