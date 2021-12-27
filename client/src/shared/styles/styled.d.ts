@@ -34,6 +34,11 @@ declare module "styled-components" {
         violet: string;
       };
 
+      buttonColors: {
+        buttonHoverBackgroundColor: string;
+        buttonActiveBackgroundColor: string;
+      };
+
       colors: {
         main: IPalette;
         secondary: IPalette;

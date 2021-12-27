@@ -1,5 +1,3 @@
-import AddIcon from "@mui/icons-material/Add";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import {
   BoardColumnContainer,
   BoardColumnInfoContainer,
@@ -9,7 +7,9 @@ import {
   BoardColumnGroupNameText,
   BoardColumnMoreButtonWrapper,
   BoardColumnAddButtonWrapper,
-  BoardColumnCardContainer,
+  // BoardColumnCardContainer,
+  OptionsButton,
+  AddButton,
   useStyles,
 } from "./Styles";
 import BoardCard from "./BoardCard";
@@ -28,6 +28,15 @@ const BoardColumn: React.FC<BoardColumnParams> = ({ data, group }) => {
   // MUI styles
   const classes = useStyles();
 
+  // methods
+  const optionsHandler = () => {
+    console.log(`Clicked Options Button for "${group.groupName}"`);
+  };
+
+  const addNewTodoHandler = () => {
+    console.log(group);
+  };
+
   return (
     <BoardColumnContainer>
       {/* column info */}
@@ -39,10 +48,10 @@ const BoardColumn: React.FC<BoardColumnParams> = ({ data, group }) => {
             </BoardColumnGroupNameWrapper>
           </BoardColumnGroupNameContainer>
           <BoardColumnMoreButtonWrapper>
-            <MoreHorizIcon className={classes.columnButton} />
+            <OptionsButton onClick={optionsHandler} className={classes.columnButton} />
           </BoardColumnMoreButtonWrapper>
           <BoardColumnAddButtonWrapper>
-            <AddIcon className={classes.columnButton} />
+            <AddButton onClick={addNewTodoHandler} className={classes.columnButton} />
           </BoardColumnAddButtonWrapper>
         </BoardColumnInfoWrapper>
       </BoardColumnInfoContainer>

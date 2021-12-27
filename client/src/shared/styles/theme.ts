@@ -17,6 +17,11 @@ export const defaultTheme: DefaultTheme = {
       violet: "rgba(183, 15, 255, 0.34)",
     },
 
+    buttonColors: {
+      buttonHoverBackgroundColor: "#e3e3e0",
+      buttonActiveBackgroundColor: "#a1a19e",
+    },
+
     colors: {
       main: {
         mainText: "black",
