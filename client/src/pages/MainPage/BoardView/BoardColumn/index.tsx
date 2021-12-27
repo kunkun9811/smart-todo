@@ -13,7 +13,12 @@ import {
   useStyles,
 } from "./Styles";
 import BoardCard from "./BoardCard";
-import { TodoArray, Todo, Group } from "../../../../shared/models";
+import { TodoArray, Todo, Group, Section, User, NewTodo, Priority } from "../../../../shared/models";
+
+/* redux imports */
+import { useDispatch, useSelector } from "react-redux";
+import { bindActionCreators } from "redux";
+import { TodosActionCreators, State } from "../../../../state";
 
 /* local params */
 interface BoardColumnParams {
@@ -28,13 +33,34 @@ const BoardColumn: React.FC<BoardColumnParams> = ({ data, group }) => {
   // MUI styles
   const classes = useStyles();
 
+  // redux states
+  const user: User = useSelector((state: State) => state.user);
+  const section: Section | undefined = useSelector((state: State) => state.sections).find((s: Section) => s._id === user.currentSectionId);
+
+  // redux update functions
+  const dispatch = useDispatch();
+  const { AddTodo } = bindActionCreators(TodosActionCreators, dispatch);
+
   // methods
   const optionsHandler = () => {
     console.log(`Clicked Options Button for "${group.groupName}"`);
   };
 
   const addNewTodoHandler = () => {
+    /* DEBUG: */
     console.log(group);
+    const newTodo: NewTodo = {
+      userId: user._id,
+      groupId: group.id,
+      sectionId: user.currentSectionId, // NOTE: using "user.currentSectionId" because typesciprt says ".find()" might return undefined
+      tags: [0],
+      title: "this is testing if add new todo works via frontend",
+      description: "hi",
+      due_date: Date(),
+      priority: Priority.LOW,
+      columnPos: 0,
+    };
+    AddTodo(newTodo);
   };
 
   return (
