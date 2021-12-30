@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
 import { User } from "../models/userModel";
 import { ResponseMessage } from "../shared/interfaces/responseMessage.interface";
-import { createResMsg } from "../shared/helperFunctions";
+import { createResMsg, isObjectIdValid } from "../shared/helperFunctions";
 import mongoose from "mongoose";
 
 import userModel from "../models/userModel";
-import userRouter from "../routes/userRoutes";
+import sectionModel, { Section } from "../models/sectionModel";
+import { getSectionsByUserId } from "./sectionController";
+import { InternalReturn } from "../shared/interfaces/internalReturn.interface";
+import { StatusCodes } from "http-status-codes";
 
 /* handlers */
 // TODO: [12/14/2021] In order to get all users, this requires admin permission in the future
@@ -149,11 +152,24 @@ export const updateUser = async (req: Request, res: Response) => {
   // NOTE: if any of the properties above are not specified, then mongodb will not update those properties.
   // Namely, mongoDB will not update any particular properties if the corresponding passed in values are "undefined" or "null"
   // We could pass this directly into "findByIdAndUpdate" below
-  const newInfo: modfiableUserProperties = req.body;
+  const { _id, username, currentSectionId } = req.body;
 
-  // check if id is valid
-  if (!mongoose.Types.ObjectId.isValid(newInfo._id)) {
+  // DEBUG:
+  console.log("---newInfo---");
+  console.log(`_id = ${_id}`);
+  console.log(`username = ${username}`);
+  console.log(`currentSectionId = ${currentSectionId}`);
+
+  // check if id + currentSectionId are valid
+  if (!isObjectIdValid(_id)) {
     const msgText = `The user id is not provided or the id is not valid`;
+    console.warn(`---${msgText}---`);
+    const msg: ResponseMessage = createResMsg([], msgText);
+    return res.status(400).json(msg);
+  }
+
+  if (!isObjectIdValid(currentSectionId)) {
+    const msgText = `The currentSectionId is not provided or the id is not valid`;
     console.warn(`---${msgText}---`);
     const msg: ResponseMessage = createResMsg([], msgText);
     return res.status(400).json(msg);
@@ -161,20 +177,46 @@ export const updateUser = async (req: Request, res: Response) => {
 
   try {
     // grab current user info
-    const user: User | null = await userModel.findById(newInfo._id);
+    const user: User | null = await userModel.findById(_id);
     if (!user) {
-      console.warn(`---User with id=${newInfo._id} does not exist---`);
-      const msg: ResponseMessage = createResMsg([], `User with id=${newInfo._id} does not exist`);
+      const msgText = `User with id=${_id} does not exist`;
+      console.warn(`---${msgText}---`);
+      const msg: ResponseMessage = createResMsg([], msgText);
       return res.status(404).json(msg);
     }
 
-    const updatedUser = await userModel.findByIdAndUpdate(newInfo._id, newInfo, { new: true });
+    // check if section exists
+    const currentSection: Section | null = await sectionModel.findById(currentSectionId);
+    if (!currentSection) {
+      const msgText = `Section with id=${currentSectionId} does not exist`;
+      console.warn(msgText);
+      const msg: ResponseMessage = createResMsg([], msgText);
+      return res.status(StatusCodes.NOT_FOUND).json(msg);
+    }
+
+    // check if user has permission to access this section
+    // TODO: [12/29/2021] in the future, permission checks need to be more rigorous/additional logic
+    const userSections: Section[] = await getSectionsByUserId(_id).then((intRet: InternalReturn) => intRet.data);
+    const section: Section | undefined = userSections.find((s: Section) => s._id === currentSectionId);
+    if (!section) {
+      const msgText = `The user does not have permission to access the section with id=${currentSectionId}`;
+      console.warn(`---${msgText}---`);
+      const msg: ResponseMessage = createResMsg([], msgText);
+      return res.status(StatusCodes.FORBIDDEN).json(msg);
+    }
+
+    const newInfo: modfiableUserProperties = {
+      _id,
+      username,
+      currentSectionId,
+    };
+    const updatedUser = await userModel.findByIdAndUpdate(_id, newInfo, { new: true });
     console.log(`---updated user with id=${newInfo._id}---`);
     console.log(updatedUser);
     const msg: ResponseMessage = createResMsg(updatedUser, "");
     res.status(200).json(msg);
   } catch (e) {
-    const msgText = `Unable to update user with id=${newInfo._id}. Something went wrong on the server side`;
+    const msgText = `Unable to update user with id=${_id}. Something went wrong on the server side`;
     console.warn(`---${msgText}---`);
     console.warn(e);
     const msg: ResponseMessage = createResMsg([], msgText);

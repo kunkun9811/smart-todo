@@ -2,8 +2,11 @@ import { Request, Response } from "express";
 import sectionModel, { Section } from "../models/sectionModel";
 import userModel, { User } from "../models/userModel";
 import { ResponseMessage } from "../shared/interfaces/responseMessage.interface";
-import { createResMsg } from "../shared/helperFunctions";
+import { createInternalReturn, createResMsg } from "../shared/helperFunctions";
 import mongoose from "mongoose";
+
+import { StatusCodes } from "http-status-codes";
+import { InternalReturn } from "../shared/interfaces/internalReturn.interface";
 
 export const getAllSections = async (req: Request, res: Response) => {
   res.setHeader("Content-Type", "application/json");
@@ -57,18 +60,30 @@ export const getSectionById = async (req: Request, res: Response) => {
   }
 };
 
-export const getSectionsByUserId = async (req: Request, res: Response) => {
+// NOTE: since we are using getSectionsByUserId() somewhere else internally, I separated the function out
+export const getSectionsByUserIdMiddleware = async (req: Request, res: Response) => {
   // get params
   const { userId } = req.params;
 
   // set hearders
   res.setHeader("Content-Type", "application/json");
 
+  // get sections
+  const intRet: InternalReturn = await getSectionsByUserId(userId);
+
+  // send response
+  // KEY: if there is no matching section, we will just return intRet.data, which is an empty array
+  const msg: ResponseMessage = createResMsg(intRet.data, intRet.message);
+  return res.status(intRet.statusCode).json(msg);
+};
+
+export const getSectionsByUserId = async (userId: string): Promise<InternalReturn> => {
   // check if userId is valid
   if (!mongoose.Types.ObjectId.isValid(userId)) {
-    console.warn("---passed in user id is invalid---");
-    const msg: ResponseMessage = createResMsg([], "user id is invalid");
-    return res.status(400).json(msg);
+    const msgText = "passed in user id is invalid";
+    console.warn(`---${msgText}---`);
+    const intRet: InternalReturn = createInternalReturn(StatusCodes.BAD_REQUEST, [], msgText);
+    return intRet;
   }
 
   // check if there is an user with id = userId
@@ -76,8 +91,8 @@ export const getSectionsByUserId = async (req: Request, res: Response) => {
   if (!user) {
     const msgText = `Tried to retrive sections for user with id=${userId} but this user does not exist`;
     console.warn(`---${msgText}---`);
-    const msg: ResponseMessage = createResMsg([], msgText);
-    return res.status(400).json(msg);
+    const intRet: InternalReturn = createInternalReturn(StatusCodes.BAD_REQUEST, [], msgText);
+    return intRet;
   }
 
   try {
@@ -87,14 +102,13 @@ export const getSectionsByUserId = async (req: Request, res: Response) => {
     console.log("---sections---");
     console.log(sections);
 
-    // KEY: if there are no matching sections, we will just return empty array
-    const msg: ResponseMessage = createResMsg(sections, "");
-    return res.status(200).json(msg);
+    const intRet: InternalReturn = createInternalReturn(StatusCodes.OK, sections, "");
+    return intRet;
   } catch (e) {
     const errMsg = `Unable to get Sections for user id=${userId}. Something went wrong on the server side.`;
     console.warn(`---${errMsg}---`);
     console.warn(e);
-    const msg: ResponseMessage = createResMsg([], errMsg);
-    return res.status(500).json(msg);
+    const intRet: InternalReturn = createInternalReturn(StatusCodes.BAD_REQUEST, [], errMsg);
+    return intRet;
   }
 };
