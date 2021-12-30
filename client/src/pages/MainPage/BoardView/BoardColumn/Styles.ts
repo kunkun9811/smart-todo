@@ -1,7 +1,4 @@
 import styled from "styled-components/macro";
-import { makeStyles } from "@mui/styles";
-import AddIcon from "@mui/icons-material/Add";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 /* local interfaces */
 interface IBoardColumnGroupNameWrapper {
@@ -111,30 +108,3 @@ export const BoardColumnAddButtonWrapper = styled.div`
     background-color: ${(props) => props.theme.palette.buttonColors.buttonActiveBackgroundColor};
   }
 `;
-
-// export const BoardColumnCardContainer = styled.div`
-//   height: 5%;
-//   width: 95%;
-//   min-height: 30px;
-//   min-width: 150px;
-//   margin: 5px 0;
-//   background-color: white;
-//   border: 1px solid black;
-//   border-radius: 7px;
-// `;
-
-// export const AddButton = styled(AddIcon)`
-//   cursor: pointer;
-// `;
-
-// export const OptionsButton = styled(MoreHorizIcon)`
-//   cursor: pointer;
-// `;
-
-/* material UI themes */
-// export const useStyles = makeStyles({
-//   columnButton: {
-//     height: "15px !important",
-//     width: "15px !important",
-//   },
-// });

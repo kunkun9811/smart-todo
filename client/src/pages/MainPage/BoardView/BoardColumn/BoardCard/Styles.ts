@@ -1,5 +1,4 @@
 import styled from "styled-components/macro";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 /* local interfaces */
 interface ITagProps {

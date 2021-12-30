@@ -7,9 +7,6 @@ import {
   BoardColumnGroupNameText,
   BoardColumnMoreButtonWrapper,
   BoardColumnAddButtonWrapper,
-  // BoardColumnCardContainer,
-  // OptionsButton,
-  // AddButton,
 } from "./Styles";
 import { useStyles } from "../../../../shared/styles/muiStyles";
 import OptionsButton from "../../../../shared/components/OptionsButton";
