@@ -154,12 +154,6 @@ export const updateUser = async (req: Request, res: Response) => {
   // We could pass this directly into "findByIdAndUpdate" below
   const { _id, username, currentSectionId } = req.body;
 
-  // DEBUG:
-  console.log("---newInfo---");
-  console.log(`_id = ${_id}`);
-  console.log(`username = ${username}`);
-  console.log(`currentSectionId = ${currentSectionId}`);
-
   // check if id + currentSectionId are valid
   if (!isObjectIdValid(_id)) {
     const msgText = `The user id is not provided or the id is not valid`;
