@@ -1,4 +1,5 @@
 import styled from "styled-components/macro";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 /* local interfaces */
 interface ITagProps {
@@ -6,14 +7,22 @@ interface ITagProps {
 }
 
 export const BoardCardContainer = styled.div`
-  height: 5%;
-  width: 95%;
-  min-height: 30px;
-  min-width: 150px;
+  min-height: 80px;
+  width: 100%;
   margin: 5px 0;
   background-color: white;
   border: ${(props) => `1px solid ${props.theme.palette.colors.main.borderColor}`};
   border-radius: 7px;
+`;
+
+export const BoardCardContentContainer = styled.div`
+  height: 100%;
+  width: 90%;
+`;
+
+export const BoardCardOptionsContainer = styled.div`
+  height: 100%;
+  width: 10%;
 `;
 
 export const BoardCardTagsContainer = styled.div`

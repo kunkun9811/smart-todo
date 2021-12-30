@@ -14,8 +14,7 @@ export const BoardColumnContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   height: 90%;
-  width: 15%;
-  min-width: 250px;
+  width: 260px;
   margin: 0 10px;
   border-radius: 5px;
 
@@ -124,18 +123,18 @@ export const BoardColumnAddButtonWrapper = styled.div`
 //   border-radius: 7px;
 // `;
 
-export const AddButton = styled(AddIcon)`
-  cursor: pointer;
-`;
+// export const AddButton = styled(AddIcon)`
+//   cursor: pointer;
+// `;
 
-export const OptionsButton = styled(MoreHorizIcon)`
-  cursor: pointer;
-`;
+// export const OptionsButton = styled(MoreHorizIcon)`
+//   cursor: pointer;
+// `;
 
 /* material UI themes */
-export const useStyles = makeStyles({
-  columnButton: {
-    height: "15px !important",
-    width: "15px !important",
-  },
-});
+// export const useStyles = makeStyles({
+//   columnButton: {
+//     height: "15px !important",
+//     width: "15px !important",
+//   },
+// });

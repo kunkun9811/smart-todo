@@ -8,10 +8,12 @@ import {
   BoardColumnMoreButtonWrapper,
   BoardColumnAddButtonWrapper,
   // BoardColumnCardContainer,
-  OptionsButton,
-  AddButton,
-  useStyles,
+  // OptionsButton,
+  // AddButton,
 } from "./Styles";
+import { useStyles } from "../../../../shared/styles/muiStyles";
+import OptionsButton from "../../../../shared/components/OptionsButton";
+import AddButton from "../../../../shared/components/AddButton";
 import BoardCard from "./BoardCard";
 import { TodoArray, Todo, Group, Section, User, NewTodo, Priority } from "../../../../shared/models";
 
@@ -74,10 +76,10 @@ const BoardColumn: React.FC<BoardColumnParams> = ({ data, group }) => {
             </BoardColumnGroupNameWrapper>
           </BoardColumnGroupNameContainer>
           <BoardColumnMoreButtonWrapper>
-            <OptionsButton onClick={optionsHandler} className={classes.columnButton} />
+            <OptionsButton onClick={optionsHandler} className={classes.button} />
           </BoardColumnMoreButtonWrapper>
           <BoardColumnAddButtonWrapper>
-            <AddButton onClick={addNewTodoHandler} className={classes.columnButton} />
+            <AddButton onClick={addNewTodoHandler} className={classes.button} />
           </BoardColumnAddButtonWrapper>
         </BoardColumnInfoWrapper>
       </BoardColumnInfoContainer>

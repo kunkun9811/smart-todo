@@ -1,5 +1,5 @@
 import { Todo, Section } from "../../../../../shared/models";
-import { BoardCardContainer, BoardCardTagsContainer, Tag, BoardCardText } from "./Styles";
+import { BoardCardContainer, BoardCardContentContainer, BoardCardOptionsContainer, BoardCardTagsContainer, Tag, BoardCardText } from "./Styles";
 
 /* redux imports */
 import { useSelector } from "react-redux";
@@ -13,14 +13,17 @@ const BoardCard: React.FC<Todo> = (cardInfo) => {
 
   return (
     <BoardCardContainer>
-      <BoardCardTagsContainer>
-        {cardInfo.tags.map((t: number) => (
-          <Tag key={t} backgroundColor={section.tagColors[t].color}>
-            {section.tagColors[t].text}
-          </Tag>
-        ))}
-      </BoardCardTagsContainer>
-      <BoardCardText>{cardInfo.title}</BoardCardText>
+      <BoardCardContentContainer>
+        <BoardCardTagsContainer>
+          {cardInfo.tags.map((t: number) => (
+            <Tag key={t} backgroundColor={section.tagColors[t].color}>
+              {section.tagColors[t].text}
+            </Tag>
+          ))}
+        </BoardCardTagsContainer>
+        <BoardCardText>{cardInfo.title}</BoardCardText>
+      </BoardCardContentContainer>
+      <BoardCardOptionsContainer></BoardCardOptionsContainer>
     </BoardCardContainer>
   );
 };
